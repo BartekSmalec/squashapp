@@ -2,6 +2,7 @@ package io.squashapp.squashapp.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,7 +11,7 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tournament_id")
-    private int tournamentId;
+    private Long tournamentId;
     @Column(name = "tournament_name")
     private String tournamentName;
     @Temporal(TemporalType.DATE)
@@ -32,12 +33,30 @@ public class Tournament {
     private Boolean woman;
     @Column(name = "prize")
     private int prize;
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
 
-    public int getTournamentId() {
+
+    public Set<Match> getMatches() {
+        return matches;
+    }
+    public void setMatches(Set<Match> matches) {
+        this.matches = matches;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Long getTournamentId() {
         return tournamentId;
     }
 
-    public void setTournamentId(int id) {
+    public void setTournamentId(Long id) {
         this.tournamentId = id;
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "match_set")
 public class MatchSet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "first_person")
