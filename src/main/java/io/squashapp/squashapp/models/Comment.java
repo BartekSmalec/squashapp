@@ -1,5 +1,7 @@
 package io.squashapp.squashapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +19,7 @@ public class Comment {
     private User author;
     @Temporal(TemporalType.DATE)
     private Date date;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;

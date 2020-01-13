@@ -1,5 +1,7 @@
 package io.squashapp.squashapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -33,6 +35,8 @@ public class Tournament {
     private Boolean woman;
     @Column(name = "prize")
     private int prize;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
