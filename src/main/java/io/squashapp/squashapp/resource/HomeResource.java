@@ -2,16 +2,24 @@ package io.squashapp.squashapp.resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 public class HomeResource {
 
     Logger logger = LoggerFactory.getLogger(HomeResource.class);
+
+//    @PostMapping("/login")
+//    public String login()
+//    {
+//        return "Logged";
+//    }
 
     @GetMapping("/")
     public String home() {

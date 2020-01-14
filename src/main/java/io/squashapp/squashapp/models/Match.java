@@ -1,6 +1,10 @@
 package io.squashapp.squashapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -9,16 +13,28 @@ public class Match {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "match_id")
-    private int matchId;
+    private Long matchId;
     @OneToOne
     private User firstPerson;
     @OneToOne
     private User secondPerson;
+    @JsonManagedReference
     @OneToMany(mappedBy = "match")
     private Set<MatchSet> matchSet;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Tournament getTournament() {
         return tournament;
@@ -40,11 +56,11 @@ public class Match {
     private int round;
 
 
-    public int getMatchId() {
+    public Long getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(int id) {
+    public void setMatchId(Long id) {
         this.matchId = id;
     }
 

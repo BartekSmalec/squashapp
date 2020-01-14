@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,6 +22,7 @@ public class Tournament {
     @Column(name = "country")
     private String country;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "tournament")
     private Set<Match> matches;
     @Column(name = "sport_facility")

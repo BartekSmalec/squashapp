@@ -1,0 +1,43 @@
+<div class="main">
+  <p>
+    <mat-form-field appearance="legacy">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)]="this.user.userName" matInput placeholder="Username" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>Password</mat-label>
+      <input type="password" [(ngModel)]="this.user.password" matInput placeholder="Password" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>Name</mat-label>
+      <input [(ngModel)]="this.user.name" matInput placeholder="Name" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>Surname</mat-label>
+      <input [(ngModel)]="this.user.surname" matInput placeholder="Surname" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>Age</mat-label>
+      <input [(ngModel)]="this.user.age" matInput placeholder="Age" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button color="primary" (click)="register()">
+      Register
+    </button>
+  </p>
+</div>

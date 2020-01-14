@@ -6,20 +6,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.Optional;
 
-
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserResource {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     Logger logger = LoggerFactory.getLogger(UserResource.class);
 
@@ -30,6 +35,9 @@ public class UserResource {
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
             return ResponseEntity.badRequest().build();
         } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActive(true);
+            user.setRoles("ROLE_USER");
             createdUser = userRepository.save(user);
         }
 
@@ -86,6 +94,12 @@ public class UserResource {
             return ResponseEntity.created(uri)
                     .body(createdUser);
         }
+    }
+
+    @GetMapping("/currentUser")
+    public User getCurrentUser(Principal principal) {
+        Optional<User> user = userRepository.findByUserName(principal.getName());
+        return user.get();
     }
 
 

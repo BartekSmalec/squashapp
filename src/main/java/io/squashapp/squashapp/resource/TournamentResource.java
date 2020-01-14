@@ -18,6 +18,8 @@ import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.Optional;
 
+
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 @RequestMapping("/tournament")
 public class TournamentResource {

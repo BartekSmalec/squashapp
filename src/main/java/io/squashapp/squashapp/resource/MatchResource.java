@@ -1,7 +1,11 @@
 package io.squashapp.squashapp.resource;
 
 import io.squashapp.squashapp.models.Match;
+import io.squashapp.squashapp.models.Tournament;
+import io.squashapp.squashapp.models.User;
 import io.squashapp.squashapp.repository.MatchRepository;
+import io.squashapp.squashapp.repository.TournamentRepository;
+import io.squashapp.squashapp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-
-
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 @RequestMapping("/match")
 public class MatchResource {
@@ -22,25 +25,50 @@ public class MatchResource {
     @Autowired
     MatchRepository matchRepository;
 
+    @Autowired
+    TournamentRepository tournamentRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     Logger logger = LoggerFactory.getLogger(MatchResource.class);
 
     @PostMapping("/add")
-    public ResponseEntity<Match> create(@RequestBody Match match) {
+    public ResponseEntity<Match> create(@RequestBody Match match, @RequestParam String tournamentId, @RequestParam String firstPersonName, @RequestParam String secondPersonName) {
         Match createdMatch;
+        Optional<User> firstPerson;
+        Optional<User> secondPerson;
 
-        createdMatch = matchRepository.save(match);
+        Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(tournamentId));
 
-        if (createdMatch == null) {
-            return ResponseEntity.notFound().build();
+        firstPerson = userRepository.findByUserName(firstPersonName);
+        secondPerson = userRepository.findByUserName(secondPersonName);
+
+        if (foundTournament.isPresent() && firstPerson.isPresent() && secondPerson.isPresent()) {
+
+            match.setTournament(foundTournament.get());
+            match.setFirstPerson(firstPerson.get());
+            match.setSecondPerson(secondPerson.get());
+
+
+            createdMatch = matchRepository.save(match);
+
+            if (createdMatch == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/getMatch/{id}")
+                        .buildAndExpand(createdMatch.getMatchId())
+                        .toUri();
+
+                return ResponseEntity.created(uri)
+                        .body(createdMatch);
+            }
         } else {
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/getMatch/{id}")
-                    .buildAndExpand(createdMatch.getMatchId())
-                    .toUri();
-
-            return ResponseEntity.created(uri)
-                    .body(createdMatch);
+            return ResponseEntity.notFound().build();
         }
+
+
     }
 
     @GetMapping("/getMatch/{id}")

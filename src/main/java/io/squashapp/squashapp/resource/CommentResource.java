@@ -17,8 +17,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 @RequestMapping("/comment")
 public class CommentResource {
@@ -68,6 +70,8 @@ public class CommentResource {
 
         Optional<Tournament> currentTournament = tournamentRepository.findById(id);
 
+        comment.setDate(new Date());
+
         if(currentTournament.isPresent())
         {
             comment.setTournament(currentTournament.get());
@@ -77,6 +81,11 @@ public class CommentResource {
         {
             comment.setAuthor(currentUser.get());
         }
+        else{
+            return ResponseEntity.badRequest().body(comment);
+        }
+
+
 
         createdComment = commentRepository.save(comment);
 

@@ -1,7 +1,11 @@
 package io.squashapp.squashapp.resource;
 
+import io.squashapp.squashapp.models.Match;
 import io.squashapp.squashapp.models.MatchSet;
+import io.squashapp.squashapp.models.User;
+import io.squashapp.squashapp.repository.MatchRepository;
 import io.squashapp.squashapp.repository.MatchSetRepository;
+import io.squashapp.squashapp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
 @RequestMapping("/matchSet")
 public class MatchSetResource {
@@ -21,25 +26,47 @@ public class MatchSetResource {
     @Autowired
     MatchSetRepository matchSetRepository;
 
+    @Autowired
+    MatchRepository matchRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     Logger logger = LoggerFactory.getLogger(MatchResource.class);
 
     @PostMapping("/add")
-    public ResponseEntity<MatchSet> create(@RequestBody MatchSet matchSet) {
+    public ResponseEntity<MatchSet> create(@RequestBody MatchSet matchSet, @RequestParam String matchId, @RequestParam String userName) {
         MatchSet createdMatchSet;
 
-        createdMatchSet = matchSetRepository.save(matchSet);
+        Optional<Match> match = matchRepository.findById(Long.valueOf(matchId));
 
-        if (createdMatchSet == null) {
+        Optional<User> winner = userRepository.findByUserName(userName);
+
+        winner.get().setAge(20);
+
+        if(match.isPresent() && winner.isPresent())
+        {
+            matchSet.setMatch(match.get());
+            matchSet.setWinner(winner.get());
+
+            createdMatchSet = matchSetRepository.save(matchSet);
+
+            if (createdMatchSet == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/getMatchSet/{id}")
+                        .buildAndExpand(createdMatchSet.getId())
+                        .toUri();
+
+                return ResponseEntity.created(uri)
+                        .body(createdMatchSet);
+            }
+        }else {
             return ResponseEntity.notFound().build();
-        } else {
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/getMatchSet/{id}")
-                    .buildAndExpand(createdMatchSet.getId())
-                    .toUri();
-
-            return ResponseEntity.created(uri)
-                    .body(createdMatchSet);
         }
+
+
     }
 
     @GetMapping("/getMatchSet/{id}")

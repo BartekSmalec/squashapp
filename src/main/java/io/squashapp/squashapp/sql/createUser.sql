@@ -9,8 +9,16 @@ CREATE TABLE `user`(
 
 
 #########################
-INSERT INTO user (active, user_name, password, roles)
-VALUES (true, 'user', 'user', 'ROLE_USER');
+    @Column(name = "name")
+    private String name;
+    @Column(name = "surname")
+    private String surname;
+    @Column(name = "age")
+    private int age;
+
+
+INSERT INTO user (active, user_name, password, roles, name, surname, age)
+VALUES (true, 'user', 'user', 'ROLE_USER', 'ADAM', 'Smalec', 20);
 
 INSERT INTO user (id ,active, user_name, password, roles)
 VALUES (2, true, 'admin', 'admin', 'ROLE_ADMIN');
