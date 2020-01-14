@@ -33,14 +33,31 @@ export class AppServiceService {
     return this.http.post<User>(this.REGISTER_URL, user, { headers: headers });
   }
 
-  login(username: String, password: String) {
-    console.log("LOGIN SERVICE");
-    const headers = new HttpHeaders({ "Content-Type": "application/json",  });
+  // login(username: String, password: String) {
+  //   console.log("LOGIN SERVICE");
+  //   const headers = new HttpHeaders({ "Content-Type": "application/json",  });
 
-    console.log( this.LOGIN_URL + "?username=" + username + "&password="+password );
-    return this.http.post<String>(
-      "http://localhost:8080/login" + "?username=" + username + "&password="+password,
-      { headers: headers }
-    );
+  //   console.log( this.LOGIN_URL + "?username=" + username + "&password="+password );
+  //   return this.http.post<String>(
+  //     "http://localhost:8080/login" + "?username=" + username + "&password="+password,
+  //     { headers: headers }
+  //   );
+  // }
+
+  login(username: String, password: String): Observable<String> {
+    let headers = new Headers({
+      Authorization: "Basic " + btoa(username + ":" + password),
+      "X-Requested-With": "XMLHttpRequest" // to suppress 401 browser popup
+    });
+
+    let config = {
+      headers: new HttpHeaders()
+        .append("X-Requested-With", "XMLHttpRequest")
+        .append("Authorization", "Basic " + btoa(username + ":" + password))
+    };
+
+    let data = { username: username, password: password };
+
+    return this.http.post<String>("http://localhost:8080/login", data, config);
   }
 }
