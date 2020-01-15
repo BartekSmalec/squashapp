@@ -3,11 +3,19 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Tournament } from "../models/Tournament";
 import { User } from "../models/User";
+import { LoginForm } from '../models/loginForm.model';
+import { JwtResponse } from '../models/jwtRespose.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: "root"
 })
 export class AppServiceService {
+
+
   private BASE_URL = "http://localhost:8080/";
   private LOGIN_URL = `${this.BASE_URL}login`;
   private LOGOUT_URL = `${this.BASE_URL}logout`;
@@ -44,20 +52,25 @@ export class AppServiceService {
   //   );
   // }
 
-  login(username: String, password: String): Observable<String> {
-    let headers = new Headers({
-      Authorization: "Basic " + btoa(username + ":" + password),
-      "X-Requested-With": "XMLHttpRequest" // to suppress 401 browser popup
-    });
+  // login(username: String, password: String): Observable<String> {
+  //   let headers = new Headers({
+  //     Authorization: "Basic " + btoa(username + ":" + password),
+  //     "X-Requested-With": "XMLHttpRequest" // to suppress 401 browser popup
+  //   });
 
-    let config = {
-      headers: new HttpHeaders()
-        .append("X-Requested-With", "XMLHttpRequest")
-        .append("Authorization", "Basic " + btoa(username + ":" + password))
-    };
+  //   let config = {
+  //     headers: new HttpHeaders()
+  //       .append("X-Requested-With", "XMLHttpRequest")
+  //       .append("Authorization", "Basic " + btoa(username + ":" + password))
+  //   };
 
-    let data = { username: username, password: password };
+  //   let data = { username: username, password: password };
 
-    return this.http.post<String>("http://localhost:8080/login", data, config);
+  //   return this.http.post<String>("http://localhost:8080/login", data, config);
+  // }
+
+
+  login(credentials: LoginForm): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(this.LOGIN_URL, credentials, httpOptions);
   }
 }

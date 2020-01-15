@@ -54,6 +54,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { RegisterComponent } from './components/register/register.component'; 
 import { FormsModule } from '@angular/forms';
+import { httpInterceptorProviders } from './service/auth-interceptor';
 
 
 const appRoutes: Routes = [
@@ -127,7 +128,7 @@ const appRoutes: Routes = [
     ScrollingModule,
     FormsModule,
   ],
-  providers: [AppServiceService],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

@@ -7,22 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     @Autowired
     private UserRepository userRepository;
-
-    Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-
 
     @Override
     @Transactional(readOnly = true)
@@ -34,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         logger.info("User Detail Service: " + user.get().getUserName() + "\n" + user.get().getRoles());
 
         UserPrinciple userPrinciple = UserPrinciple.build(user.get());
-       // userPrinciple.setAuthorities(new ArrayList<>().add(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        // userPrinciple.setAuthorities(new ArrayList<>().add(new SimpleGrantedAuthority("ROLE_ADMIN")));
 
         logger.info("UserPrinciple.build(): " + UserPrinciple.build(user.get()).getAuthorities());
 

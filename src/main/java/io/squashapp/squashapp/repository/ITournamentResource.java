@@ -8,9 +8,14 @@ import java.util.Optional;
 
 public interface ITournamentResource {
     public abstract void createTournament(User user);
+
     public abstract void updateTournament(String id, User product);
+
     public abstract void deleteTournament(String id);
+
     public abstract Tournament getTournamentById(String id);
+
     public abstract Optional<Tournament> getTournamentByName(String name);
+
     public abstract Collection<Tournament> getTournaments();
 }

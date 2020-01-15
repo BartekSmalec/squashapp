@@ -7,8 +7,14 @@ import java.util.Optional;
 
 public interface IUserService {
     public abstract void createUser(User user);
+
     public abstract void updateUser(String id, User product);
+
     public abstract void deleteUser(String id);
+
     public abstract User getUserById(String id);
+
     public abstract Optional<User> getUserByName(String name);
-    public abstract Collection<User> getUsers();}
+
+    public abstract Collection<User> getUsers();
+}

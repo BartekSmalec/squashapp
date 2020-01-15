@@ -42,8 +42,7 @@ public class CommentResource {
 
         Optional<User> currentUser = userRepository.findByUserName(principal.getName());
 
-        if(currentUser.isPresent())
-        {
+        if (currentUser.isPresent()) {
             comment.setAuthor(currentUser.get());
         }
 
@@ -72,19 +71,15 @@ public class CommentResource {
 
         comment.setDate(new Date());
 
-        if(currentTournament.isPresent())
-        {
+        if (currentTournament.isPresent()) {
             comment.setTournament(currentTournament.get());
         }
 
-        if(currentUser.isPresent())
-        {
+        if (currentUser.isPresent()) {
             comment.setAuthor(currentUser.get());
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body(comment);
         }
-
 
 
         createdComment = commentRepository.save(comment);

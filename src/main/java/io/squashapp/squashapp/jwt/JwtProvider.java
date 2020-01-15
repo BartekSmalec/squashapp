@@ -13,10 +13,10 @@ import java.util.Date;
 public class JwtProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-    @Value("${verkalets.app.jwtSecret}")
+    @Value("${smalec.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${verkalets.app.jwtExpiration}")
+    @Value("${smalec.app.jwtExpiration}")
     private int jwtExpiration;
 
     public String generateJwtToken(Authentication authentication) {
@@ -26,7 +26,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
+                .setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

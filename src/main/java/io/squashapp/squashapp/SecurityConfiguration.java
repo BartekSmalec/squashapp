@@ -19,21 +19,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailService;
+    @Autowired
+    private JwtAuthEntryPoint unauthorizedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailService);
     }
 
-    @Autowired
-    private JwtAuthEntryPoint unauthorizedHandler;
-
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
         return new JwtAuthTokenFilter();
     }
-
-
 
     @Bean
     @Override
@@ -46,19 +43,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/actuator/*").permitAll()
-                .antMatchers("/login/").permitAll()
-                //.antMatchers("/admin/").hasRole("ADMIN")
                 .antMatchers("/user/").hasAnyRole("USER", "ADMIN")
-                //.antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/admin/").access("hasRole('ADMIN')")
                 .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin()
-                //.usernameParameter("username")
-                .permitAll()
-                //.and().logout().and()
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

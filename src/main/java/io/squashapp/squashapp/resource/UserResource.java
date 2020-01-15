@@ -1,7 +1,7 @@
 package io.squashapp.squashapp.resource;
 
-import io.squashapp.squashapp.repository.UserRepository;
 import io.squashapp.squashapp.models.User;
+import io.squashapp.squashapp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

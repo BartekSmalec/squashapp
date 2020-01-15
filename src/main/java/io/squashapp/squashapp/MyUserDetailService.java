@@ -1,8 +1,8 @@
 package io.squashapp.squashapp;
 
-import io.squashapp.squashapp.repository.UserRepository;
 import io.squashapp.squashapp.models.MyUserDetails;
 import io.squashapp.squashapp.models.User;
+import io.squashapp.squashapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

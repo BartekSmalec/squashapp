@@ -9,17 +9,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-
 
 
 public class UserPrinciple implements UserDetails {
 
-    Logger logger = LoggerFactory.getLogger(UserPrinciple.class);
-
-
     private static final long serialVersionUID = 1L;
+    Logger logger = LoggerFactory.getLogger(UserPrinciple.class);
     private long id;
     private String name;
     private String surname;
@@ -44,10 +44,6 @@ public class UserPrinciple implements UserDetails {
 
     }
 
-    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
     public static UserPrinciple build(User user) {
         List<SimpleGrantedAuthority> authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -57,7 +53,7 @@ public class UserPrinciple implements UserDetails {
         Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
         logger.info("AUTH: " + authorities);
 
-        UserPrinciple  userPrinciple =  new UserPrinciple(
+        UserPrinciple userPrinciple = new UserPrinciple(
                 user.getId(),
                 user.getName(),
                 user.getSurname(),
@@ -94,6 +90,10 @@ public class UserPrinciple implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

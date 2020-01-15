@@ -44,8 +44,7 @@ public class MatchSetResource {
 
         winner.get().setAge(20);
 
-        if(match.isPresent() && winner.isPresent())
-        {
+        if (match.isPresent() && winner.isPresent()) {
             matchSet.setMatch(match.get());
             matchSet.setWinner(winner.get());
 
@@ -62,7 +61,7 @@ public class MatchSetResource {
                 return ResponseEntity.created(uri)
                         .body(createdMatchSet);
             }
-        }else {
+        } else {
             return ResponseEntity.notFound().build();
         }
 

@@ -48,7 +48,7 @@ export class UserService {
     {
         const headers = new HttpHeaders({ "Content-Type": "application/json" });
 		return this.http.post<String>(
-			this.LOGIN_URL+"?username="+username+"&password=password",
+			this.LOGIN_URL,
 			{ headers: headers }
 		);
     }

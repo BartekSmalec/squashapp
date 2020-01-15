@@ -17,13 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
     @Autowired
     private JwtProvider tokenProvider;
-
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
@@ -47,7 +45,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 logger.info("userPrinciple authorities: " + userPrinciple.getAuthorities());
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities() );
+                        userDetails, null, userDetails.getAuthorities());
 
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));

@@ -44,6 +44,7 @@ public class Tournament {
     public Set<Match> getMatches() {
         return matches;
     }
+
     public void setMatches(Set<Match> matches) {
         this.matches = matches;
     }

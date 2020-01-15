@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "tournament_match")
 public class Match {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "match_id")
     private Long matchId;
     @OneToOne
@@ -27,6 +27,8 @@ public class Match {
     private Tournament tournament;
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(name = "round")
+    private int round;
 
     public Date getDate() {
         return date;
@@ -51,10 +53,6 @@ public class Match {
     public void setRound(int round) {
         this.round = round;
     }
-
-    @Column(name="round")
-    private int round;
-
 
     public Long getMatchId() {
         return matchId;

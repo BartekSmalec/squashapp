@@ -55,8 +55,8 @@ public class HomeResource {
     }
 
     @GetMapping("/admin")
-    public String admin( ) {
-        return ("<h1> Welcome: admin" );
+    public String admin() {
+        return ("<h1> Welcome: admin");
     }
 
     @GetMapping("/currentUser")
