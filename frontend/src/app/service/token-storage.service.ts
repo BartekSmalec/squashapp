@@ -12,6 +12,7 @@ const ROLE_USER = 'ROLE_USER';
 })
 export class TokenStorageService {
   private roles: Array<string> = [];
+  username: String;
   constructor() { }
  
   signOut() {
@@ -30,6 +31,7 @@ export class TokenStorageService {
   public saveUsername(username: string) {
     window.localStorage.removeItem(USERNAME_KEY);
     window.localStorage.setItem(USERNAME_KEY, username);
+    this.username = username;
   }
  
   public getUsername(): string {

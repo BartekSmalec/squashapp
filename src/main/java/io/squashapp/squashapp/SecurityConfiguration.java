@@ -4,6 +4,7 @@ import io.squashapp.squashapp.jwt.JwtAuthEntryPoint;
 import io.squashapp.squashapp.jwt.JwtAuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,10 +44,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/actuator/*").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/tournament/**").permitAll() // Dodaj to aby działało w angularze
                 .antMatchers("/user/").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/").access("hasRole('ADMIN')")
                 .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/tournament/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

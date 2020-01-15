@@ -53,8 +53,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { RegisterComponent } from './components/register/register.component'; 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { httpInterceptorProviders } from './service/auth-interceptor';
+import { HomeComponent } from './components/home/home.component';
+import { AddTournamentComponent } from './components/add-tournament/add-tournament.component';
+import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
 
 
 const appRoutes: Routes = [
@@ -74,7 +77,10 @@ const appRoutes: Routes = [
     AppComponent,
     CurrentUserComponent,
     LoginComponentComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent,
+    AddTournamentComponent,
+    TournamentListComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +133,7 @@ const appRoutes: Routes = [
     PortalModule,
     ScrollingModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

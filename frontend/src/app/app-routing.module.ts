@@ -3,6 +3,9 @@ import { Routes, RouterModule } from "@angular/router";
 import { CurrentUserComponent } from "./components/current-user/current-user.component";
 import { LoginComponentComponent } from "./components/login-component/login-component.component";
 import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { AddTournamentComponent } from './components/add-tournament/add-tournament.component';
+import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
 
 const routes: Routes = [
   {
@@ -12,7 +15,15 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent
-  }
+  },
+  {
+    path: "addTournament",
+    component: AddTournamentComponent
+  },
+  {
+    path: "tournamentList",
+    component: TournamentListComponent
+  },
 ];
 
 @NgModule({

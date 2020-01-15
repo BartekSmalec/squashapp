@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Squash App</h1>
+  <span class="example-spacer"></span>
+
+  <!-- <mat-icon
+    class="example-icon"
+    aria-hidden="false"
+    aria-label="Example heart icon"
+    >favorite</mat-icon
+  > -->
+  <button mat-raised-button color="primary" (click)="get()">getRestrictedAuthorities</button>
+  <div *ngIf="this.isLogged">
+    <!-- Zalogowany jako {{ this.tokenStorage.username }} -->
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+
+</mat-toolbar>
+
+<div fxLayout="row">
+  <!-- <div fxFlex="10">
+    logo
+  </div> -->
+
+  <mat-drawer-container>
+    <!-- <mat-drawer #snav [mode]="'side'"> -->
+    <mat-drawer mode="side" opened>
+      <mat-nav-list>
+          <div *ngIf="!this.isLogged">
+            <mat-list-item routerLink="/login">Login</mat-list-item>
+          </div>
+        <mat-list-item routerLink="/register">Register</mat-list-item>
+        <div *ngIf="this.isLogged">
+          <mat-list-item routerLink="/addTournament">Add tournament</mat-list-item>
+        </div>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <div class="routerClass">
+        <router-outlet></router-outlet>
+
+
+        <div *ngIf="this.tournament" class="torunament">
+          {{ this.tournament | json }}
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
