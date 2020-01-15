@@ -38,7 +38,6 @@ export class LoginComponentComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         this.isLogged = true;
-        //window.location.reload();
       
       },
       e => {
