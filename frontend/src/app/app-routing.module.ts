@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddTournamentComponent } from './components/add-tournament/add-tournament.component';
 import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
+import { AddMatchComponent } from './components/add-match/add-match.component';
+import { AddSetComponent } from './components/add-set/add-set.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,14 @@ const routes: Routes = [
     path: "tournamentList",
     component: TournamentListComponent
   },
+  {
+    path: "addMatch/:id",
+    component: AddMatchComponent
+  },
+  {
+    path: "addSet/:id",
+    component: AddSetComponent
+  }
 ];
 
 @NgModule({

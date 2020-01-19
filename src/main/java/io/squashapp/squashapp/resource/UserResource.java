@@ -30,11 +30,16 @@ public class UserResource {
 
     @PostMapping("/register")
     public ResponseEntity<User> create(@RequestBody User user) {
+
+        logger.info("USER: " + user.getUserName());
+
         User createdUser;
 
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
             return ResponseEntity.badRequest().build();
         } else {
+            logger.info("User password: " + user.getPassword());
+
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setActive(true);
             user.setRoles("ROLE_USER");

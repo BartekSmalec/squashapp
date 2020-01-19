@@ -3,6 +3,7 @@ import { AppServiceService } from "src/app/service/app-service.service";
 import { LoginForm } from "src/app/models/loginForm.model";
 import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Tournament } from 'src/app/models/Tournament';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: "app-login-component",
   templateUrl: "./login-component.component.html",
@@ -17,8 +18,9 @@ export class LoginComponentComponent implements OnInit {
 
   constructor(
     private appService: AppServiceService,
-    private tokenStorage: TokenStorageService
-  ) {}
+    private tokenStorage: TokenStorageService,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.username = "";
@@ -34,9 +36,9 @@ export class LoginComponentComponent implements OnInit {
   login() {
     console.log(
       "Username:  " +
-        this.loginForm.userName +
-        " Password: " +
-        this.loginForm.password
+      this.loginForm.userName +
+      " Password: " +
+      this.loginForm.password
     );
 
     this.appService.login(this.loginForm).subscribe(
@@ -45,10 +47,18 @@ export class LoginComponentComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         this.isLogged = true;
-        window.location.reload();
+        this.openSnackBar("Correct login", "OK");
+
+        setTimeout(() => {
+          window.location.reload();
+        },
+          1000);
+
       },
       e => {
         console.log("Error: " + e.error);
+        this.openSnackBar("Invalid username or passowrd", "OK");
+
       }
     );
   }
@@ -56,6 +66,12 @@ export class LoginComponentComponent implements OnInit {
   logout() {
     this.tokenStorage.signOut();
     window.location.reload();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

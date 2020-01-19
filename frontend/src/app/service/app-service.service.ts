@@ -6,6 +6,8 @@ import { User } from "../models/User";
 import { LoginForm } from "../models/loginForm.model";
 import { JwtResponse } from "../models/jwtRespose.model";
 import { TokenStorageService } from "./token-storage.service";
+import { Match } from '../models/Match';
+import { Comment } from '../models/Comment';
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -23,15 +25,28 @@ export class AppServiceService {
   private REGISTER_URL = `${this.BASE_URL}users/register`;
   private ADD_TOURNAMENT_URL = `${this.BASE_URL}tournament/add`;
   private GET_TOURNAMENTS_URL = `${this.BASE_URL}tournament/getTournament`;
+  private GET_MATCHES_URL = `${this.BASE_URL}match/add`;
+  private ADD_COMMENT_URL = `${this.BASE_URL}comment/addComment`;
 
   constructor(
     private http: HttpClient,
     private tokenStorageService: TokenStorageService
-  ) {}
+  ) { }
 
   getCurrentUser(): Observable<String> {
     return this.http.get(this.CURRENT_USER_URL, { responseType: "text" });
   }
+
+  addComment(comment: Comment, id: number): Observable<Comment> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.post<Comment>(this.ADD_COMMENT_URL + "?id=" + id, comment, header);
+  }
+
 
   getTournamentTest(): Observable<Tournament> {
     console.log("TEST");
@@ -65,6 +80,28 @@ export class AppServiceService {
     return this.http.get<Tournament[]>(this.GET_TOURNAMENTS_URL, header);
   }
 
+  addMatch(match: Match, tournamentId: number, firstPersonName: string, secondPersonName: string): Observable<Match> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+
+    return this.http.post<Match>(this.GET_MATCHES_URL + "?tournamentId=" + tournamentId
+      + "&firstPersonName=" + firstPersonName + "&secondPersonName=" + secondPersonName, match, header)
+  }
+
+  getTournament(id: number): Observable<Tournament> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<Tournament>(this.GET_TOURNAMENTS_URL + "/" + id, header);
+  }
+
   registerUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -92,4 +129,6 @@ export class AppServiceService {
       header
     );
   }
+
+
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { MatTableDataSource } from "@angular/material/table";
 import { Tournament } from "src/app/models/Tournament";
 import { AppServiceService } from "src/app/service/app-service.service";
+import { MatPaginator } from '@angular/material/paginator';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -32,15 +35,30 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TournamentListComponent implements OnInit {
   tournaments: Tournament[];
   dataSource: any;
+  isAdmin: boolean;
 
-  constructor(private apiService: AppServiceService) {}
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  constructor(private apiService: AppServiceService, private tokenStorageService: TokenStorageService, private router: Router) { }
+
 
   ngOnInit() {
+
+    if (this.tokenStorageService.getAuthorities().includes("ROLE_ADMIN")) {
+      this.isAdmin = true;
+    }
+    else {
+      this.isAdmin = false
+    }
+
+
+    console.log("Is admin? " + this.tokenStorageService.getAuthorities() + " " + this.isAdmin);
+
     this.apiService.getTournaments().subscribe(
       data => {
         console.log(JSON.stringify(data));
-        data.forEach
-        this.tournaments = new Array<Tournament>()
+        this.tournaments = data;
+        console.log("Tournament one: ", this.tournaments[0].tournamentName);
         this.dataSource = new MatTableDataSource(this.tournaments);
 
       },
@@ -52,11 +70,26 @@ export class TournamentListComponent implements OnInit {
 
   }
 
-  displayedColumns: string[] = ["tournamentId", "tournamentName", "weight", "symbol"];
+  ngOnChanges() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  displayedColumns: string[] = ["tournamentId", "tournamentName", "edit", "delete", "addMatch"];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
 
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  editTournament(id: number) {
+    console.log("Numer: " + id)
+  }
+
+  goToMatch(id: number)
+  {
+    const link = ['/addMatch', id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 }

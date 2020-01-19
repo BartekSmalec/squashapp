@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -45,11 +46,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/actuator/*").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/tournament/**").permitAll() // Dodaj to aby działało w angularze
+                .antMatchers(HttpMethod.OPTIONS, "/match/**").permitAll() // Dodaj to aby działało w angularze
+                .antMatchers(HttpMethod.OPTIONS, "/comment/**").permitAll() // Dodaj to aby działało w angularze
                 .antMatchers("/user/").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/").access("hasRole('ADMIN')")
                 .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/tournament/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/match/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -63,5 +67,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return NoOpPasswordEncoder.getInstance();
+//    }
 
 }

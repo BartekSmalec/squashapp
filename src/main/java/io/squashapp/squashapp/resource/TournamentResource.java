@@ -77,12 +77,6 @@ public class TournamentResource {
     public ResponseEntity<Tournament> create(@RequestBody Tournament tournament) {
         Tournament createdTournament;
 
-//        if (tournamentRepository.findByUserName(tournament.getTournamentName()).isPresent()) {
-//            return ResponseEntity.badRequest().build();
-//        } else {
-//            createdTournament = tournamentRepository.save(tournament);
-//        }
-
         createdTournament = tournamentRepository.save(tournament);
 
         if (createdTournament == null) {

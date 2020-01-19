@@ -58,6 +58,8 @@ import { httpInterceptorProviders } from './service/auth-interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { AddTournamentComponent } from './components/add-tournament/add-tournament.component';
 import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
+import { AddMatchComponent } from './components/add-match/add-match.component';
+import { AddSetComponent } from './components/add-set/add-set.component';
 
 
 const appRoutes: Routes = [
@@ -80,7 +82,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     AddTournamentComponent,
-    TournamentListComponent
+    TournamentListComponent,
+    AddMatchComponent,
+    AddSetComponent
   ],
   imports: [
     BrowserModule,

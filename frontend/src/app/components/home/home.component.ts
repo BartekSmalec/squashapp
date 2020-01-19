@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
     }
-    //this.tournament = new Tournament;
   }
 
   logout() {
