@@ -10,14 +10,16 @@
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 40px;
-    min-height: 100vh;
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-     
+    min-height: 100vh;     
+}
+
+.home{
+   cursor: pointer; 
 }
 
 .menu{
   height: 100vh;
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
+  
 }
+
+

@@ -52,6 +52,7 @@ export class AddMatchComponent implements OnInit {
       data => {
         console.log(JSON.stringify(data));
         this.tournament = data;
+        this.tournament.comments.sort(this.compare);
         console.log("Tournament one: ", this.tournament);
         this.matches = this.tournament.matches;
 
@@ -77,7 +78,7 @@ export class AddMatchComponent implements OnInit {
   addMatch(match: Match, tournamentId: number, firstPersonName: string, secondPersonName: string) {
     console.log("Date: " + this.temporarMatch.date + "Round: " + this.temporarMatch.round + this.firstPersonName + this.secondPersonName);
 
-    this.apiService.addMatch(this.temporarMatch, this.id , this.firstPersonName, this.secondPersonName).subscribe(
+    this.apiService.addMatch(this.temporarMatch, this.id, this.firstPersonName, this.secondPersonName).subscribe(
       (match: Match) => {
         this.matchResposne = new Match().deserialize(match);
 
@@ -93,7 +94,7 @@ export class AddMatchComponent implements OnInit {
     );
   }
 
-  addCommentButton(){
+  addCommentButton() {
     console.log("Thid comment: " + this.comment.content);
 
 
@@ -105,6 +106,16 @@ export class AddMatchComponent implements OnInit {
         console.log("Error: " + e.error);
       }
     );
+  }
+
+  compare(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
   }
 
 }

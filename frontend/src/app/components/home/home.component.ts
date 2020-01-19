@@ -3,6 +3,7 @@ import { FormControl } from "@angular/forms";
 import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Tournament } from 'src/app/models/Tournament';
 import { AppServiceService } from 'src/app/service/app-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-home",
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   tournament: Tournament;
 
 
-  constructor(private tokenStorage: TokenStorageService, private apiService: AppServiceService) {}
+  constructor(private tokenStorage: TokenStorageService, private apiService: AppServiceService, private router: Router) {}
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -41,5 +42,11 @@ export class HomeComponent implements OnInit {
         console.log("Error: " + e.error);
       }
     );
+  }
+
+  routeToHome(){
+    const link = ['/'];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 }
