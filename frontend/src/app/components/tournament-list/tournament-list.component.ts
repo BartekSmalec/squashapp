@@ -3,9 +3,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tournament } from "src/app/models/Tournament";
 import { AppServiceService } from "src/app/service/app-service.service";
-import { MatPaginator } from '@angular/material/paginator';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { Router } from '@angular/router';
+import { MatPaginator } from "@angular/material/paginator";
+import { TokenStorageService } from "src/app/service/token-storage.service";
+import { Router } from "@angular/router";
 
 export interface PeriodicElement {
   name: string;
@@ -37,22 +37,26 @@ export class TournamentListComponent implements OnInit {
   dataSource: any;
   isAdmin: boolean;
 
-
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor(private apiService: AppServiceService, private tokenStorageService: TokenStorageService, private router: Router) { }
-
+  constructor(
+    private apiService: AppServiceService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-
     if (this.tokenStorageService.getAuthorities().includes("ROLE_ADMIN")) {
       this.isAdmin = true;
-    }
-    else {
-      this.isAdmin = false
+    } else {
+      this.isAdmin = false;
     }
 
-
-    console.log("Is admin? " + this.tokenStorageService.getAuthorities() + " " + this.isAdmin);
+    console.log(
+      "Is admin? " +
+        this.tokenStorageService.getAuthorities() +
+        " " +
+        this.isAdmin
+    );
 
     this.apiService.getTournaments().subscribe(
       data => {
@@ -60,36 +64,49 @@ export class TournamentListComponent implements OnInit {
         this.tournaments = data;
         console.log("Tournament one: ", this.tournaments[0].tournamentName);
         this.dataSource = new MatTableDataSource(this.tournaments);
-
       },
       e => {
         console.log("Error: " + e.error);
       }
     );
-
-
   }
 
   ngOnChanges() {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns: string[] = ["tournamentId", "tournamentName", "edit", "delete", "addMatch"];
+  displayedColumns: string[] = [
+    "tournamentId",
+    "tournamentName",
+    "addMatch",
+    "join",
+    "edit",
+    "delete"
+  ];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
-
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   editTournament(id: number) {
-    console.log("Numer: " + id)
+    console.log("Numer: " + id);
   }
 
-  goToMatch(id: number)
-  {
-    const link = ['/addMatch', id];
+  goToMatch(id: number) {
+    const link = ["/addMatch", id];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
+  }
+
+  join(id: number) {
+    this.apiService.addParticipant(id).subscribe(
+      data => {
+        console.log("Corrent: " + JSON.stringify(data));
+      },
+      e => {
+        console.log("Error: " + e.error);
+      }
+    );
   }
 }

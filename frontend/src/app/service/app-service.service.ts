@@ -31,6 +31,11 @@ export class AppServiceService {
   private ADD_SET_URL = `${this.BASE_URL}matchSet/add`;
   private GET_SETS_URL = `${this.BASE_URL}matchSet/getMatchSet`;
   private GET_SET_MATCHID_URL = `${this.BASE_URL}matchSet/getMatchSets`;
+  private ADD_PARTICIPANT_URL = `${this.BASE_URL}tournament/addParticipant`;
+  private GET_MY_TOURNAMENTS_URL = `${this.BASE_URL}tournament/getTournamentForPrincipal`;
+
+
+
 
 
 
@@ -57,6 +62,31 @@ export class AppServiceService {
       comment,
       header
     );
+  }
+
+
+  addParticipant(id: number): Observable<MatchSet> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.post<MatchSet>(
+      this.ADD_PARTICIPANT_URL + "?id=" + id,
+      header
+    );
+  }
+
+  getMyTournaments(): Observable<Tournament[]>
+  {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<Tournament[]>(this.GET_MY_TOURNAMENTS_URL, header);
   }
 
   addMatchSet(

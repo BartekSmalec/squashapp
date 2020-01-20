@@ -16,6 +16,22 @@
       <td mat-cell *matCellDef="let element"> {{element.tournamentName}} </td>
     </ng-container>
     
+    <ng-container  matColumnDef="addMatch">
+      <th mat-header-cell *matHeaderCellDef> Add match </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="goToMatch(element.tournamentId)"  mat-raised-button color="primary"
+          >
+          Add match
+        </button> </td>
+    </ng-container>
+
+    <ng-container  matColumnDef="join">
+      <th mat-header-cell *matHeaderCellDef> Join </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="join(element.tournamentId)"  mat-raised-button color="primary"
+          >
+          Join
+        </button> </td>
+    </ng-container>
+
     <ng-container  matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef> Edit </th>
       <td mat-cell *matCellDef="let element"> <button [disabled]="!this.isAdmin" mat-raised-button color="primary"
@@ -29,14 +45,6 @@
       <td mat-cell *matCellDef="let element"> <button  [disabled]="!this.isAdmin" mat-raised-button color="primary"
           (click)="editTournament(element.tournamentId)">
           Delete
-        </button> </td>
-    </ng-container>
-
-    <ng-container  matColumnDef="addMatch">
-      <th mat-header-cell *matHeaderCellDef> Add match </th>
-      <td mat-cell *matCellDef="let element"> <button (click)="goToMatch(element.tournamentId)"  mat-raised-button color="primary"
-          >
-          Add match
         </button> </td>
     </ng-container>
 

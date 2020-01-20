@@ -1,8 +1,11 @@
 package io.squashapp.squashapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -26,6 +29,17 @@ public class User {
     private String surname;
     @Column(name = "age")
     private int age;
+
+    @ManyToMany
+    Set<Tournament> tournaments;
+
+    public Set<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
+    }
 
     public String getName() {
         return name;
@@ -89,5 +103,24 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return isActive() == user.isActive() &&
+                getAge() == user.getAge() &&
+                getUserName().equals(user.getUserName()) &&
+                getPassword().equals(user.getPassword()) &&
+                getRoles().equals(user.getRoles()) &&
+                getName().equals(user.getName()) &&
+                getSurname().equals(user.getSurname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserName(), getPassword(), isActive(), getRoles(), getName(), getSurname(), getAge());
     }
 }

@@ -8,6 +8,7 @@ import { AddTournamentComponent } from './components/add-tournament/add-tourname
 import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
 import { AddMatchComponent } from './components/add-match/add-match.component';
 import { AddSetComponent } from './components/add-set/add-set.component';
+import { MyTournamentsComponent } from './components/my-tournaments/my-tournaments.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "addSet/:id",
     component: AddSetComponent
+  },
+  {
+    path: "myTournaments",
+    component: MyTournamentsComponent
   }
 ];
 

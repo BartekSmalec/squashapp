@@ -40,6 +40,20 @@ public class Tournament {
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
+    @JoinTable(
+            name = "course_like",
+            joinColumns = @JoinColumn(name = "tournament_id"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    @ManyToMany
+    Set<User> participants;
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
+    }
 
     public Set<Match> getMatches() {
         return matches;
