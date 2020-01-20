@@ -1,5 +1,6 @@
 import { Deserializable } from './deserializable';
 import { Match } from './Match';
+import { User } from './User';
 
 export class Tournament implements Deserializable
 {
@@ -18,6 +19,7 @@ export class Tournament implements Deserializable
     prize?: number;
     matches?: Match[];
     comments?: Comment[];
+    participants?: User[];
 
 
     deserialize(input: any) {
