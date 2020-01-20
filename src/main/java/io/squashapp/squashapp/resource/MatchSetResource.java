@@ -15,7 +15,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
@@ -42,7 +45,7 @@ public class MatchSetResource {
 
         Optional<User> winner = userRepository.findByUserName(userName);
 
-        winner.get().setAge(20);
+        //winner.get().setAge(20);
 
         if (match.isPresent() && winner.isPresent()) {
             matchSet.setMatch(match.get());
@@ -71,6 +74,9 @@ public class MatchSetResource {
     @GetMapping("/getMatchSet/{id}")
     public ResponseEntity<MatchSet> read(@PathVariable("id") String id) {
         Optional<MatchSet> foundMatchSet = matchSetRepository.findById(Long.valueOf(id));
+
+        logger.info("ID: " + id +  "foundMatchSet: " + foundMatchSet.get().getId() );
+
         if (!foundMatchSet.isPresent()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -102,12 +108,25 @@ public class MatchSetResource {
             MatchSet createdMatchSet = matchSetRepository.save(matchSet);
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/getMatch/{id}")
+                    .path("/getMatchSet/{id}")
                     .buildAndExpand(createdMatchSet.getId())
                     .toUri();
 
             return ResponseEntity.created(uri)
                     .body(createdMatchSet);
+        }
+    }
+
+    @GetMapping("/getMatchSets/{id}")
+    public ResponseEntity<List<MatchSet>> readId(@PathVariable("id") String id) {
+        Iterable<MatchSet> foundMatchSet = matchSetRepository.findAll();
+
+        List<MatchSet> filteredSets = StreamSupport.stream(foundMatchSet.spliterator(), false).filter(s -> s.getMatch().getMatchId() == Long.valueOf(id)).collect(Collectors.toList());
+
+        if (filteredSets.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(filteredSets);
         }
     }
 }

@@ -6,8 +6,9 @@ import { User } from "../models/User";
 import { LoginForm } from "../models/loginForm.model";
 import { JwtResponse } from "../models/jwtRespose.model";
 import { TokenStorageService } from "./token-storage.service";
-import { Match } from '../models/Match';
-import { Comment } from '../models/Comment';
+import { Match } from "../models/Match";
+import { Comment } from "../models/Comment";
+import { MatchSet } from "../models/MatchSet";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -27,25 +28,86 @@ export class AppServiceService {
   private GET_TOURNAMENTS_URL = `${this.BASE_URL}tournament/getTournament`;
   private GET_MATCHES_URL = `${this.BASE_URL}match/add`;
   private ADD_COMMENT_URL = `${this.BASE_URL}comment/addComment`;
+  private ADD_SET_URL = `${this.BASE_URL}matchSet/add`;
+  private GET_SETS_URL = `${this.BASE_URL}matchSet/getMatchSet`;
+  private GET_SET_MATCHID_URL = `${this.BASE_URL}matchSet/getMatchSets`;
+
+
+
+
 
   constructor(
     private http: HttpClient,
     private tokenStorageService: TokenStorageService
-  ) { }
+  ) {}
 
   getCurrentUser(): Observable<String> {
     return this.http.get(this.CURRENT_USER_URL, { responseType: "text" });
   }
 
-  addComment(comment: Comment, id: number): Observable<Comment> {
+  addComment(comment: Comment, id: number): Observable<MatchSet> {
     let header = {
       headers: new HttpHeaders().set(
         "Authorization",
         `Bearer ${this.tokenStorageService.getToken()}`
       )
     };
-    return this.http.post<Comment>(this.ADD_COMMENT_URL + "?id=" + id, comment, header);
+    return this.http.post<MatchSet>(
+      this.ADD_COMMENT_URL + "?id=" + id,
+      comment,
+      header
+    );
   }
+
+  addMatchSet(
+    matchSet: MatchSet,
+    id: number,
+    userName: string
+  ): Observable<Comment> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.post<Comment>(
+      this.ADD_SET_URL + "?matchId=" + id + "&userName=" + userName,
+      matchSet,
+      header
+    );
+  }
+
+  getMatchSet(): Observable<MatchSet[]> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<MatchSet[]>(this.GET_SETS_URL, header);
+  }
+
+  getMatchSetId(id: number): Observable<MatchSet[]> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<MatchSet[]>(this.GET_SETS_URL + "/"+ id, header);
+  }
+
+
+  getMatchSetsMatchId(id: number): Observable<MatchSet[]> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<MatchSet[]>(this.GET_SET_MATCHID_URL  + "/"+ id, header);
+  }
+
 
 
   getTournamentTest(): Observable<Tournament> {
@@ -80,7 +142,12 @@ export class AppServiceService {
     return this.http.get<Tournament[]>(this.GET_TOURNAMENTS_URL, header);
   }
 
-  addMatch(match: Match, tournamentId: number, firstPersonName: string, secondPersonName: string): Observable<Match> {
+  addMatch(
+    match: Match,
+    tournamentId: number,
+    firstPersonName: string,
+    secondPersonName: string
+  ): Observable<Match> {
     let header = {
       headers: new HttpHeaders().set(
         "Authorization",
@@ -88,8 +155,17 @@ export class AppServiceService {
       )
     };
 
-    return this.http.post<Match>(this.GET_MATCHES_URL + "?tournamentId=" + tournamentId
-      + "&firstPersonName=" + firstPersonName + "&secondPersonName=" + secondPersonName, match, header)
+    return this.http.post<Match>(
+      this.GET_MATCHES_URL +
+        "?tournamentId=" +
+        tournamentId +
+        "&firstPersonName=" +
+        firstPersonName +
+        "&secondPersonName=" +
+        secondPersonName,
+      match,
+      header
+    );
   }
 
   getTournament(id: number): Observable<Tournament> {
@@ -99,7 +175,10 @@ export class AppServiceService {
         `Bearer ${this.tokenStorageService.getToken()}`
       )
     };
-    return this.http.get<Tournament>(this.GET_TOURNAMENTS_URL + "/" + id, header);
+    return this.http.get<Tournament>(
+      this.GET_TOURNAMENTS_URL + "/" + id,
+      header
+    );
   }
 
   registerUser(user: User): Observable<User> {
@@ -129,6 +208,4 @@ export class AppServiceService {
       header
     );
   }
-
-
 }

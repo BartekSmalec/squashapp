@@ -1,1 +1,76 @@
-<p>add-set works!</p>
+<div class="container">
+  <div class="form">
+    <mat-form-field>
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="firstPerson">
+        <th mat-header-cell *matHeaderCellDef>First person</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.firstPerson }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="secondPerson">
+        <th mat-header-cell *matHeaderCellDef>Second person</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.secondPerson }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="winner">
+        <th mat-header-cell *matHeaderCellDef>Winner</th>
+        <td mat-cell *matCellDef="let element">{{ element.winner.userName }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="addMatchForm">
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>First person result</mat-label>
+        <input
+          [(ngModel)]="this.matchSet.firstPerson"
+          matInput
+          placeholder="First person result"
+        />
+        <mat-hint>Result</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Second person result</mat-label>
+        <input
+          [(ngModel)]="this.matchSet.secondPerson"
+          matInput
+          placeholder="Second person result"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Winner</mat-label>
+        <input [(ngModel)]="this.username" matInput placeholder="Winner" />
+        <mat-hint>Winner</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <button [disabled]="!this.active" class="addSet" (click)="addSet()" mat-raised-button color="primary">
+      Add set
+    </button>
+  </div>
+</div>

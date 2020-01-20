@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Match } from 'src/app/models/Match';
 import { Comment } from 'src/app/models/Comment';
 
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-match',
@@ -27,7 +27,7 @@ export class AddMatchComponent implements OnInit {
 
 
 
-  constructor(private apiService: AppServiceService, private route: ActivatedRoute) { }
+  constructor(private apiService: AppServiceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.commentContent = "";
@@ -116,6 +116,13 @@ export class AddMatchComponent implements OnInit {
       return 1;
     }
     return 0;
+  }
+
+  goToSets(id: number)
+  {
+    const link = ['/addSet', id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 
 }

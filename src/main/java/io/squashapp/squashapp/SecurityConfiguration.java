@@ -48,12 +48,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/tournament/**").permitAll() // Dodaj to aby działało w angularze
                 .antMatchers(HttpMethod.OPTIONS, "/match/**").permitAll() // Dodaj to aby działało w angularze
                 .antMatchers(HttpMethod.OPTIONS, "/comment/**").permitAll() // Dodaj to aby działało w angularze
+                .antMatchers(HttpMethod.OPTIONS, "/matchSet/**").permitAll() // Dodaj to aby działało w angularze
                 .antMatchers("/user/").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/").access("hasRole('ADMIN')")
                 .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/tournament/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/match/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/matchSet/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

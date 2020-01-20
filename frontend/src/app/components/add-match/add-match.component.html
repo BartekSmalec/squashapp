@@ -28,7 +28,7 @@
 
     <ng-container matColumnDef="addSet">
       <th mat-header-cell *matHeaderCellDef> Add match </th>
-      <td mat-cell *matCellDef="let element"> <button routerLink="/addSet" mat-raised-button color="primary">
+      <td mat-cell *matCellDef="let element"> <button (click)="goToSets(element.matchId)" mat-raised-button color="primary">
           Add set
         </button> </td>
     </ng-container>
