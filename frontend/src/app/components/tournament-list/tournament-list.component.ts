@@ -70,6 +70,7 @@ export class TournamentListComponent implements OnInit {
   displayedColumns: string[] = [
     "tournamentId",
     "tournamentName",
+    "date",
     "addMatch",
     "join",
     "edit",

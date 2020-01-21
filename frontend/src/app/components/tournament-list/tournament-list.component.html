@@ -16,6 +16,11 @@
       <td mat-cell *matCellDef="let element"> {{element.tournamentName}} </td>
     </ng-container>
     
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
     <ng-container  matColumnDef="addMatch">
       <th mat-header-cell *matHeaderCellDef> Add match </th>
       <td mat-cell *matCellDef="let element"> <button (click)="goToMatch(element.tournamentId)"  mat-raised-button color="primary"
