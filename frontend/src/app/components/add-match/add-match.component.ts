@@ -120,7 +120,7 @@ export class AddMatchComponent implements OnInit {
 
   goToSets(id: number)
   {
-    const link = ['/addSet', id];
+    const link = ['/addSet', id, this.id];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
   }

@@ -32,7 +32,7 @@ const routes: Routes = [
     component: AddMatchComponent
   },
   {
-    path: "addSet/:id",
+    path: "addSet/:id/:tournamentId",
     component: AddSetComponent
   },
   {

@@ -30,7 +30,9 @@
 
       <ng-container matColumnDef="winner">
         <th mat-header-cell *matHeaderCellDef>Winner</th>
-        <td mat-cell *matCellDef="let element">{{ element.winner.userName }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.winner.userName }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -62,14 +64,27 @@
       </mat-form-field>
     </p>
     <p>
-      <mat-form-field appearance="standard">
+      <mat-form-field>
         <mat-label>Winner</mat-label>
-        <input [(ngModel)]="this.username" matInput placeholder="Winner" />
-        <mat-hint>Winner</mat-hint>
+        <mat-select [(ngModel)]="this.username">
+          <mat-option
+            *ngFor="let user of this.tournament.participants"
+            [value]="user.userName"
+          >
+            {{ user.userName }}
+            
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </p>
 
-    <button [disabled]="!this.active" class="addSet" (click)="addSet()" mat-raised-button color="primary">
+    <button
+      [disabled]="!this.active"
+      class="addSet"
+      (click)="addSet()"
+      mat-raised-button
+      color="primary"
+    >
       Add set
     </button>
   </div>
