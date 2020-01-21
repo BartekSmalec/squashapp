@@ -1,0 +1,75 @@
+<div class="main">
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Tournament name</mat-label>
+        <input [(ngModel)]="this.tournament.tournamentName" matInput placeholder="Tournament name" />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Date</mat-label>
+        <input [(ngModel)]="this.tournament.date" matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        
+        <!-- <input  [(ngModel)]="this.tournament.date" matInput placeholder="Date" />
+        <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="this.tournament.city" matInput placeholder="Name" />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Surname</mat-label>
+        <input [(ngModel)]="this.tournament.country" matInput placeholder="Surname" />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+  
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Sport facility</mat-label>
+        <input [(ngModel)]="this.tournament.sportFacility" matInput placeholder="Sport facility" />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Category</mat-label>
+          <input [(ngModel)]="this.tournament.category" matInput placeholder="Category" />
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Men</mat-label>
+          <input [(ngModel)]="this.tournament.men" matInput placeholder="Men" />
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Woman</mat-label>
+          <input [(ngModel)]="this.tournament.woman" matInput placeholder="Woman" />
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Prize</mat-label>
+          <input [(ngModel)]="this.tournament.prize" matInput placeholder="Prize" />
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </p>
+    <p>
+      <button mat-raised-button color="primary" (click)="editTournament()">
+        Edit tournament
+      </button>
+    </p>
+  </div>

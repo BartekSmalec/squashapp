@@ -61,6 +61,7 @@ import { TournamentListComponent } from './components/tournament-list/tournament
 import { AddMatchComponent } from './components/add-match/add-match.component';
 import { AddSetComponent } from './components/add-set/add-set.component';
 import { MyTournamentsComponent } from './components/my-tournaments/my-tournaments.component';
+import { EditTournamentComponent } from './components/edit-tournament/edit-tournament.component';
 
 
 const appRoutes: Routes = [
@@ -86,7 +87,8 @@ const appRoutes: Routes = [
     TournamentListComponent,
     AddMatchComponent,
     AddSetComponent,
-    MyTournamentsComponent
+    MyTournamentsComponent,
+    EditTournamentComponent
   ],
   imports: [
     BrowserModule,

@@ -167,6 +167,8 @@ export class AppServiceService {
     );
   }
 
+
+
   getTournaments(): Observable<Tournament[]> {
     let header = {
       headers: new HttpHeaders().set(

@@ -83,6 +83,7 @@ export class TournamentListComponent implements OnInit {
         console.log(JSON.stringify(data));
         this.tournaments = data;
         console.log("Tournament one: ", this.tournaments[0].tournamentName);
+        //this.tournaments.sort(this.compareTournament);
         this.dataSource = new MatTableDataSource(this.tournaments);
       },
       e => {
@@ -97,6 +98,19 @@ export class TournamentListComponent implements OnInit {
 
   editTournament(id: number) {
     console.log("Numer: " + id);
+    const link = ["/editTournament", id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
+  }
+
+  compareTournament(a, b) {
+    if (a.tournamentId < b.tournamentId) {
+      return 1;
+    }
+    if (a.tournamentId > b.tournamentId) {
+      return -1;
+    }
+    return 0;
   }
 
   deleteTournament(id: number) {
