@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   userResponse: User;
   correctRegister: boolean;
   incorrectRegister: boolean;
+  repeatedPassword: string;
 
   constructor(
     private apiService: AppServiceService,
@@ -26,10 +27,15 @@ export class RegisterComponent implements OnInit {
     this.userResponse = new User();
     this.correctRegister = false;
     this.incorrectRegister = false;
+    this.repeatedPassword = "";
   }
 
   register() {
     console.log(JSON.stringify(this.user));
+    
+    if(this.user.password === this.repeatedPassword)
+    {
+      
     this.apiService.registerUser(this.user).subscribe(
       (userResponse: User) => {
         this.userResponse = new User().deserialize(userResponse);
@@ -47,18 +53,35 @@ export class RegisterComponent implements OnInit {
         }, 2000);
       },
       e => {
-        console.log("Error: " + e.error);
+        console.log("Error: " + e.status);
 
         this.incorrectRegister = true;
 
-        this.openSnackBar("Incorrect Register", "OK");
+        if (e.status === 406) {
+          this.openSnackBar("User already exist", "OK");
+        } else {
+          this.openSnackBar("Incorrect Register", "OK");
+        }
       }
     );
+    }
+    else{
+      this.openSnackBar("Password not equal", "OK");
+    }
+
   }
+
+
+
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000
     });
+  }
+
+  checkPasswords()
+  {
+  
   }
 }

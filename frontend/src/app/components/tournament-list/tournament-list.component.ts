@@ -37,6 +37,7 @@ export class TournamentListComponent implements OnInit {
   tournaments: Tournament[];
   dataSource: any;
   isAdmin: boolean;
+  isLogged: boolean;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
@@ -47,6 +48,9 @@ export class TournamentListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    this.routeIfNotLoggedIn();
+
     if (this.tokenStorageService.getAuthorities().includes("ROLE_ADMIN")) {
       this.isAdmin = true;
     } else {
@@ -61,6 +65,19 @@ export class TournamentListComponent implements OnInit {
     );
 
     this.getTournaments();
+  }
+
+  routeIfNotLoggedIn(){
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
+
   }
 
   ngOnChanges() {

@@ -36,7 +36,7 @@ public class UserResource {
         User createdUser;
 
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(406).build();
         } else {
             logger.info("User password: " + user.getPassword());
 

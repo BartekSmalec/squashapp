@@ -1,35 +1,34 @@
 <div class="main">
   <div *ngIf="!this.isLogged">
-  <p>
-    <mat-form-field appearance="legacy">
-      <mat-label>Username</mat-label>
-      <input
-        [(ngModel)]="this.loginForm.userName"
-        matInput
-        placeholder="Username"
-      />
-      <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="standard">
-      <mat-label>Password</mat-label>
-      <input
-        type="password"
-        [(ngModel)]="this.loginForm.password"
-        matInput
-        placeholder="Password"
-      />
-      <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-  </p>
-  <p>
-    <button mat-raised-button color="primary" (click)="login()">Login</button>
-  </p>
-</div>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Username</mat-label>
+        <input
+          [(ngModel)]="this.loginForm.userName"
+          matInput
+          placeholder="Username"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          [(ngModel)]="this.loginForm.password"
+          matInput
+          placeholder="Password"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </p>
+  </div>
 
   <h1 *ngIf="this.isLogged">
-    Zalogowany jako {{ this.tokenStorage.username }}
-    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    Welcome
   </h1>
 </div>

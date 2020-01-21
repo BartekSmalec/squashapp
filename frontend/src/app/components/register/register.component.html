@@ -15,6 +15,14 @@
   </p>
   <p>
     <mat-form-field appearance="standard">
+      <mat-label>Repeated password</mat-label>
+      <input type="password" [(ngModel)]="this.repeatedPassword" matInput placeholder="Repeated password" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field appearance="standard">
       <mat-label>Name</mat-label>
       <input [(ngModel)]="this.user.name" matInput placeholder="Name" />
       <mat-hint>Hint</mat-hint>
