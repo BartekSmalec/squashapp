@@ -6,6 +6,7 @@ import { AppServiceService } from "src/app/service/app-service.service";
 import { MatPaginator } from "@angular/material/paginator";
 import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface PeriodicElement {
   name: string;
@@ -41,7 +42,8 @@ export class TournamentListComponent implements OnInit {
   constructor(
     private apiService: AppServiceService,
     private tokenStorageService: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -58,17 +60,7 @@ export class TournamentListComponent implements OnInit {
         this.isAdmin
     );
 
-    this.apiService.getTournaments().subscribe(
-      data => {
-        console.log(JSON.stringify(data));
-        this.tournaments = data;
-        console.log("Tournament one: ", this.tournaments[0].tournamentName);
-        this.dataSource = new MatTableDataSource(this.tournaments);
-      },
-      e => {
-        console.log("Error: " + e.error);
-      }
-    );
+    this.getTournaments();
   }
 
   ngOnChanges() {
@@ -85,12 +77,40 @@ export class TournamentListComponent implements OnInit {
   ];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
 
+  getTournaments() {
+    this.apiService.getTournaments().subscribe(
+      data => {
+        console.log(JSON.stringify(data));
+        this.tournaments = data;
+        console.log("Tournament one: ", this.tournaments[0].tournamentName);
+        this.dataSource = new MatTableDataSource(this.tournaments);
+      },
+      e => {
+        console.log("Error: " + e.error);
+      }
+    );
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   editTournament(id: number) {
     console.log("Numer: " + id);
+  }
+
+  deleteTournament(id: number) {
+    this.apiService.deleteService(id).subscribe(
+      data => {
+        console.log("Corrent: " + JSON.stringify(data));
+        this.openSnackBar("Deleted", "OK");
+        this.getTournaments();
+      },
+      e => {
+        console.log("Error: " + e.error);
+        this.openSnackBar("Cant' delete", "OK");
+      }
+    );
   }
 
   goToMatch(id: number) {
@@ -103,10 +123,18 @@ export class TournamentListComponent implements OnInit {
     this.apiService.addParticipant(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
+        this.openSnackBar("Joined", "OK");
       },
       e => {
         console.log("Error: " + e.error);
+        this.openSnackBar("You already joined", "OK");
       }
     );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000
+    });
   }
 }

@@ -33,13 +33,7 @@ export class AppServiceService {
   private GET_SET_MATCHID_URL = `${this.BASE_URL}matchSet/getMatchSets`;
   private ADD_PARTICIPANT_URL = `${this.BASE_URL}tournament/addParticipant`;
   private GET_MY_TOURNAMENTS_URL = `${this.BASE_URL}tournament/getTournamentForPrincipal`;
-
-
-
-
-
-
-
+  private DELETE_TOURNAMENTS_URL = `${this.BASE_URL}tournament/delete`;
 
   constructor(
     private http: HttpClient,
@@ -64,7 +58,6 @@ export class AppServiceService {
     );
   }
 
-
   addParticipant(id: number): Observable<MatchSet> {
     let header = {
       headers: new HttpHeaders().set(
@@ -78,8 +71,20 @@ export class AppServiceService {
     );
   }
 
-  getMyTournaments(): Observable<Tournament[]>
-  {
+  deleteService(id: number): Observable<String> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.delete<String>(
+      this.DELETE_TOURNAMENTS_URL + "/" + id,
+      header
+    );
+  }
+
+  getMyTournaments(): Observable<Tournament[]> {
     let header = {
       headers: new HttpHeaders().set(
         "Authorization",
@@ -124,9 +129,8 @@ export class AppServiceService {
         `Bearer ${this.tokenStorageService.getToken()}`
       )
     };
-    return this.http.get<MatchSet[]>(this.GET_SETS_URL + "/"+ id, header);
+    return this.http.get<MatchSet[]>(this.GET_SETS_URL + "/" + id, header);
   }
-
 
   getMatchSetsMatchId(id: number): Observable<MatchSet[]> {
     let header = {
@@ -135,10 +139,11 @@ export class AppServiceService {
         `Bearer ${this.tokenStorageService.getToken()}`
       )
     };
-    return this.http.get<MatchSet[]>(this.GET_SET_MATCHID_URL  + "/"+ id, header);
+    return this.http.get<MatchSet[]>(
+      this.GET_SET_MATCHID_URL + "/" + id,
+      header
+    );
   }
-
-
 
   getTournamentTest(): Observable<Tournament> {
     console.log("TEST");

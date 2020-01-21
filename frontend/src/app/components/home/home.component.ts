@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TokenStorageService } from "src/app/service/token-storage.service";
-import { Tournament } from 'src/app/models/Tournament';
-import { AppServiceService } from 'src/app/service/app-service.service';
-import { Router } from '@angular/router';
+import { Tournament } from "src/app/models/Tournament";
+import { AppServiceService } from "src/app/service/app-service.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -14,8 +14,11 @@ export class HomeComponent implements OnInit {
   isLogged: boolean;
   tournament: Tournament;
 
-
-  constructor(private tokenStorage: TokenStorageService, private apiService: AppServiceService, private router: Router) {}
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private apiService: AppServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -27,11 +30,15 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.tokenStorage.signOut();
+    
+    const link = ["/login"];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
+    
     window.location.reload();
   }
 
-  get()
-  {
+  get() {
     this.apiService.getTournamentTest().subscribe(
       data => {
         this.tournament = new Tournament().deserialize(data);
@@ -44,8 +51,8 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  routeToHome(){
-    const link = ['/'];
+  routeToHome() {
+    const link = ["/"];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
   }

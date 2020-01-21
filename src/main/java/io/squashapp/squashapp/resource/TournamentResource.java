@@ -1,6 +1,7 @@
 package io.squashapp.squashapp.resource;
 
 import io.squashapp.squashapp.models.Comment;
+import io.squashapp.squashapp.models.DeletedResponse;
 import io.squashapp.squashapp.models.Tournament;
 import io.squashapp.squashapp.models.User;
 import io.squashapp.squashapp.repository.CommentRepository;
@@ -151,7 +152,7 @@ public class TournamentResource {
         if (currentUser.isPresent()) {
         }
 
-        if (!foundTournament.isPresent() || !currentUser.isPresent()) {
+        if (!foundTournament.isPresent() || !currentUser.isPresent() || foundTournament.get().getParticipants().contains(currentUser.get())) {
             return ResponseEntity.notFound().build();
         } else {
 
@@ -195,8 +196,20 @@ public class TournamentResource {
         } else {
             return ResponseEntity.ok(currentTournament);
         }
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<DeletedResponse> delete(@PathVariable("id") String id) {
+        Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(id));
 
+        logger.info("Delete: " + foundTournament.get().getTournamentName());
+
+        if (!foundTournament.isPresent()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            tournamentRepository.delete(foundTournament.get());
+            return ResponseEntity.ok(new DeletedResponse("Deleted", 200));
+        }
     }
 
 
