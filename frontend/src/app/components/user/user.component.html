@@ -31,6 +31,13 @@
       <b>{{ tournament.tournamentName }}</b>
       Date:
       <b>{{ tournament.date }}</b>
+      <button
+      (click)="goToTournament(tournament.tournamentId)"
+      mat-raised-button
+      color="primary"
+    >
+      View
+    </button>
     </li>
   </div>
 </div>

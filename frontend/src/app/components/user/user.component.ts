@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { UserService } from "src/app/service/user.service";
 import { User } from "src/app/models/User";
@@ -18,10 +18,14 @@ export class UserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: AppServiceService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.user = new User();
+    this.tournaments = new Array();
+
     this.route.params.forEach((params: Params) => {
       if (params["userName"] !== undefined) {
         this.userName = params["userName"];
@@ -44,6 +48,12 @@ export class UserComponent implements OnInit {
         //this.openSnackBar("You can't remove", "OK");
       }
     );
+  }
+
+  goToTournament(id: number) {
+    const link = ["/tournament", id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 
   getTournamentsForUserName()

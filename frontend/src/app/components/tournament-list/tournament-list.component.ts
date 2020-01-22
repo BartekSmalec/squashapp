@@ -86,9 +86,10 @@ export class TournamentListComponent implements OnInit {
     "tournamentId",
     "tournamentName",
     "date",
-    "addMatch",
+    "view",
     "join",
     "unjoin",
+    "addMatch",
     "edit",
     "delete"
   ];
@@ -150,6 +151,12 @@ export class TournamentListComponent implements OnInit {
 
   goToMatch(id: number) {
     const link = ["/addMatch", id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
+  }
+
+  goToTournament(id: number){
+    const link = ["/tournament", id];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
   }

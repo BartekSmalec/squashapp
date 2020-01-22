@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Tournament } from "src/app/models/Tournament";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-my-tournaments",
@@ -10,7 +11,7 @@ import { Tournament } from "src/app/models/Tournament";
 export class MyTournamentsComponent implements OnInit {
   private tournaments: Tournament[];
 
-  constructor(private apiService: AppServiceService) {}
+  constructor(private apiService: AppServiceService, private router: Router) {}
 
   ngOnInit() {
     this.apiService.getMyTournaments().subscribe(
@@ -24,5 +25,11 @@ export class MyTournamentsComponent implements OnInit {
         console.log("Error: " + e.error);
       }
     );
+  }
+
+  goToTournament(id: number) {
+    const link = ["/tournament", id];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 }
