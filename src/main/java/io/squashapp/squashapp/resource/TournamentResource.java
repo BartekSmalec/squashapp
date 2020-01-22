@@ -176,12 +176,83 @@ public class TournamentResource {
         }
     }
 
+    @PostMapping("/removeParticipant")
+    public ResponseEntity<Tournament> removeParticipant(@RequestParam String id, Principal principal) {
+
+        logger.info("removeParticipant: ");
+
+        Tournament createdTournament;
+
+        Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(id));
+
+        Optional<User> currentUser = userRepository.findByUserName(principal.getName());
+
+        if (currentUser.isPresent()) {
+        }
+
+        if (!foundTournament.isPresent() || !currentUser.isPresent() || !foundTournament.get().getParticipants().contains(currentUser.get())) {
+            logger.info("Found tournament: " + foundTournament.isPresent());
+            logger.info("currentUser is present: " + currentUser.isPresent());
+            logger.info("Contains user: " + foundTournament.get().getParticipants().contains(currentUser.get()));
+
+
+            return ResponseEntity.notFound().build();
+        } else {
+
+            logger.info("Size: " + foundTournament.get().getParticipants().size());
+
+            foundTournament.get().getParticipants().remove(currentUser.get());
+
+            logger.info("Size: " + foundTournament.get().getParticipants().size());
+
+            createdTournament = tournamentRepository.save(foundTournament.get());
+
+            if (createdTournament == null) {
+                logger.info("createdTournament is null: ");
+
+                return ResponseEntity.notFound().build();
+            } else {
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/getTournament/{id}")
+                        .buildAndExpand(createdTournament.getTournamentId())
+                        .toUri();
+
+                return ResponseEntity.created(uri)
+                        .body(createdTournament);
+            }
+        }
+    }
+
+
     @GetMapping("/getTournamentForPrincipal")
     public ResponseEntity<List<Tournament>> readTournamentForPrincipal(Principal principal) {
 
         List<Tournament> foundTournament = (List<Tournament>) tournamentRepository.findAll();
 
         Optional<User> user = userRepository.findByUserName(principal.getName());
+
+        logger.info("Length: " + foundTournament.size());
+
+        List<Tournament> currentTournament = StreamSupport.stream(foundTournament.spliterator(), false).filter(s -> s.getParticipants().contains(user.get())).collect(Collectors.toList());
+
+        logger.info("Length: " + currentTournament.size());
+        logger.info("User: " + user.get().getUserName());
+
+
+        if (currentTournament.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(currentTournament);
+        }
+    }
+
+
+    @GetMapping("/getTournamentForUser/{userName}")
+    public ResponseEntity<List<Tournament>> getTournamentForUser(@PathVariable("userName") String userName) {
+
+        List<Tournament> foundTournament = (List<Tournament>) tournamentRepository.findAll();
+
+        Optional<User> user = userRepository.findByUserName(userName);
 
         logger.info("Length: " + foundTournament.size());
 

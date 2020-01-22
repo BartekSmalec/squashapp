@@ -31,7 +31,13 @@
       <ng-container matColumnDef="winner">
         <th mat-header-cell *matHeaderCellDef>Winner</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.winner.userName }}
+          <button
+            (click)="goToUserProfile(element.winner.userName)"
+            mat-stroked-button
+            color="primary"
+          >
+            {{ element.winner.userName }}
+          </button>
         </td>
       </ng-container>
 
@@ -72,7 +78,6 @@
             [value]="user.userName"
           >
             {{ user.userName }}
-            
           </mat-option>
         </mat-select>
       </mat-form-field>

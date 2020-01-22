@@ -1,5 +1,6 @@
 package io.squashapp.squashapp.resource;
 
+import io.squashapp.squashapp.models.Tournament;
 import io.squashapp.squashapp.models.User;
 import io.squashapp.squashapp.repository.UserRepository;
 import org.slf4j.Logger;
@@ -98,6 +99,26 @@ public class UserResource {
 
             return ResponseEntity.created(uri)
                     .body(createdUser);
+        }
+    }
+
+    @GetMapping("/getUserByUserName/{userName}")
+    public ResponseEntity<User> getUserByUserName(@PathVariable("userName") String userName) throws URISyntaxException {
+
+        Optional<User> foundUser = userRepository.findByUserName(userName);
+
+        if (!foundUser.isPresent()) {
+            return ResponseEntity.notFound().build();
+        } else {
+
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/getUsers/{id}")
+                    .buildAndExpand(foundUser.get().getId())
+                    .toUri();
+
+
+            return ResponseEntity.created(uri)
+                    .body(foundUser.get());
         }
     }
 

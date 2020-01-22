@@ -150,4 +150,23 @@ public class Tournament {
     public void setWoman(Boolean woman) {
         this.woman = woman;
     }
+
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "tournamentId=" + tournamentId +
+                ", tournamentName='" + tournamentName + '\'' +
+                ", date=" + date +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", matches=" + matches +
+                ", sportFacility='" + sportFacility + '\'' +
+                ", category='" + category + '\'' +
+                ", men=" + men +
+                ", woman=" + woman +
+                ", prize=" + prize +
+                ", comments=" + comments +
+                ", participants=" + participants +
+                '}';
+    }
 }

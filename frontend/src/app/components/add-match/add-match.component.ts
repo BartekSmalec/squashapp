@@ -157,4 +157,10 @@ export class AddMatchComponent implements OnInit {
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
   }
+
+  goToUserProfile(userName: string) {
+    const link = ["/user", userName];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
+  }
 }

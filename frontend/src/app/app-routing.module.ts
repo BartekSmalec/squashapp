@@ -10,6 +10,7 @@ import { AddMatchComponent } from './components/add-match/add-match.component';
 import { AddSetComponent } from './components/add-set/add-set.component';
 import { MyTournamentsComponent } from './components/my-tournaments/my-tournaments.component';
 import { EditTournamentComponent } from './components/edit-tournament/edit-tournament.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: "editTournament/:id",
     component: EditTournamentComponent
+  },
+  {
+    path: "user/:userName",
+    component: UserComponent,
   }
 ];
 

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="user">
+    <br>
+    <b>User: </b>
+    <li>
+      Username: <b>{{ user.userName }}</b>
+    </li>
+
+    <li>
+      Role: <b>{{ user.roles }}</b>
+    </li>
+
+    <li>
+      Name: <b>{{ user.name }}</b>
+    </li>
+
+    <li>
+      Surname:<b> {{ user.surname }}</b>
+    </li>
+
+    <li>
+      Age: <b>{{ user.age }}</b>
+    </li>
+  </div>
+
+  <div class="tournaments">
+      <br>
+    <b>Tournaments: </b>
+    <li *ngFor="let tournament of tournaments; index as i">
+      Name:
+      <b>{{ tournament.tournamentName }}</b>
+      Date:
+      <b>{{ tournament.date }}</b>
+    </li>
+  </div>
+</div>

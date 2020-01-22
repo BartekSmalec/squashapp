@@ -48,7 +48,6 @@ export class TournamentListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.routeIfNotLoggedIn();
 
     if (this.tokenStorageService.getAuthorities().includes("ROLE_ADMIN")) {
@@ -67,7 +66,7 @@ export class TournamentListComponent implements OnInit {
     this.getTournaments();
   }
 
-  routeIfNotLoggedIn(){
+  routeIfNotLoggedIn() {
     if (!this.tokenStorageService.getToken()) {
       this.isLogged = false;
 
@@ -77,7 +76,6 @@ export class TournamentListComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorageService.getUsername());
     }
-
   }
 
   ngOnChanges() {
@@ -90,6 +88,7 @@ export class TournamentListComponent implements OnInit {
     "date",
     "addMatch",
     "join",
+    "unjoin",
     "edit",
     "delete"
   ];
@@ -137,6 +136,10 @@ export class TournamentListComponent implements OnInit {
         console.log("Corrent: " + JSON.stringify(data));
         this.openSnackBar("Deleted", "OK");
         this.getTournaments();
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       },
       e => {
         console.log("Error: " + e.error);
@@ -160,6 +163,19 @@ export class TournamentListComponent implements OnInit {
       e => {
         console.log("Error: " + e.error);
         this.openSnackBar("You already joined", "OK");
+      }
+    );
+  }
+
+  unjoin(id: number){
+    this.apiService.removeParticipant(id).subscribe(
+      data => {
+        console.log("Corrent: " + JSON.stringify(data));
+        this.openSnackBar("Removed", "OK");
+      },
+      e => {
+        console.log("Error: " + e.error);
+        this.openSnackBar("You can't remove", "OK");
       }
     );
   }

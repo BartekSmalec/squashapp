@@ -16,14 +16,26 @@
     <ng-container matColumnDef="firstPerson">
       <th mat-header-cell *matHeaderCellDef>First person</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.firstPerson.userName }}
+        <button
+          (click)="goToUserProfile(element.firstPerson.userName)"
+          mat-stroked-button
+          color="primary"
+        >
+          {{ element.firstPerson.userName }}
+        </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="secondPerson">
       <th mat-header-cell *matHeaderCellDef>Second person</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.secondPerson.userName }}
+        <button
+          (click)="goToUserProfile(element.secondPerson.userName)"
+          mat-stroked-button
+          color="primary"
+        >
+          {{ element.secondPerson.userName }}
+        </button>
       </td>
     </ng-container>
 

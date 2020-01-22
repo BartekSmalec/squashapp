@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatchSet } from "src/app/models/MatchSet";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tournament } from 'src/app/models/Tournament';
@@ -22,7 +22,8 @@ export class AddSetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: AppServiceService
+    private apiService: AppServiceService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -102,5 +103,11 @@ export class AddSetComponent implements OnInit {
         console.log("Error: " + e.error);
       }
     );
+  }
+
+  goToUserProfile(userName: string) {
+    const link = ["/user", userName];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
   }
 }
