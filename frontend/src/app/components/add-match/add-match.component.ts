@@ -6,6 +6,7 @@ import { Match } from "src/app/models/Match";
 import { Comment } from "src/app/models/Comment";
 
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: "app-add-match",
@@ -24,14 +25,17 @@ export class AddMatchComponent implements OnInit {
   private id;
   private commentContent;
   private comment: Comment;
+  private isLogged: boolean;
 
   constructor(
     private apiService: AppServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
   ) {}
 
   ngOnInit() {
+    this.routeIfNotLoggedIn();
     this.commentContent = "";
     this.comment = new Comment();
     this.route.params.forEach((params: Params) => {
@@ -46,6 +50,18 @@ export class AddMatchComponent implements OnInit {
     this.matchResposne = new Match();
 
     this.getTournamentMatches();
+  }
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
 
   getTournamentMatches() {

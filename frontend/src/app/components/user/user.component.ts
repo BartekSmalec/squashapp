@@ -4,6 +4,7 @@ import { AppServiceService } from "src/app/service/app-service.service";
 import { UserService } from "src/app/service/user.service";
 import { User } from "src/app/models/User";
 import { Tournament } from 'src/app/models/Tournament';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: "app-user",
@@ -14,17 +15,20 @@ export class UserComponent implements OnInit {
   private userName: string;
   private user: User;
   private tournaments: Tournament[];
+  private isLogged: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private apiService: AppServiceService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit() {
     this.user = new User();
     this.tournaments = new Array();
+    this.routeIfNotLoggedIn();
 
     this.route.params.forEach((params: Params) => {
       if (params["userName"] !== undefined) {
@@ -35,6 +39,19 @@ export class UserComponent implements OnInit {
       this.getUserByUserName();
       this.getTournamentsForUserName();
     });
+  }
+
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
   getUserByUserName() {
     this.userService.getUserByUserName(this.userName).subscribe(

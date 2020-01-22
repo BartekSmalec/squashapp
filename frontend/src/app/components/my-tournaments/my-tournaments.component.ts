@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Tournament } from "src/app/models/Tournament";
 import { Router } from "@angular/router";
+import { TokenStorageService } from "src/app/service/token-storage.service";
 
 @Component({
   selector: "app-my-tournaments",
@@ -10,10 +11,16 @@ import { Router } from "@angular/router";
 })
 export class MyTournamentsComponent implements OnInit {
   private tournaments: Tournament[];
+  private isLogged: boolean;
 
-  constructor(private apiService: AppServiceService, private router: Router) {}
+  constructor(
+    private apiService: AppServiceService,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit() {
+    this.routeIfNotLoggedIn();
     this.apiService.getMyTournaments().subscribe(
       data => {
         console.log(JSON.stringify(data));
@@ -31,5 +38,17 @@ export class MyTournamentsComponent implements OnInit {
     const link = ["/tournament", id];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
+  }
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tournament } from 'src/app/models/Tournament';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: "app-add-set",
@@ -19,14 +20,17 @@ export class AddSetComponent implements OnInit {
   private tournament: Tournament;
   private tournamentId: number;
   private active: boolean;
+  private isLogged: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private apiService: AppServiceService,
-    private router: Router
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
   ) {}
 
   ngOnInit() {
+    this.routeIfNotLoggedIn();
     this.matchSets = [];
     this.matchSet = new MatchSet();
     this.tournament = new Tournament();
@@ -109,5 +113,17 @@ export class AddSetComponent implements OnInit {
     const link = ["/user", userName];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
+  }
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
 }

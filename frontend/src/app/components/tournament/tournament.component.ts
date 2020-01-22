@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Tournament } from "src/app/models/Tournament";
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: "app-tournament",
@@ -11,13 +12,17 @@ import { Tournament } from "src/app/models/Tournament";
 export class TournamentComponent implements OnInit {
   private id: number;
   private tournament: Tournament;
+  private isLogged: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: AppServiceService
+    private apiService: AppServiceService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
+    this.routeIfNotLoggedIn();
     this.tournament = new Tournament();
 
     this.route.params.forEach((params: Params) => {
@@ -29,6 +34,18 @@ export class TournamentComponent implements OnInit {
     });
 
     this.getTournament();
+  }
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
 
   getTournament() {

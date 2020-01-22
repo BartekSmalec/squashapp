@@ -3,6 +3,7 @@ import { AppServiceService } from "src/app/service/app-service.service";
 import { Params, ActivatedRoute, Router } from "@angular/router";
 import { Tournament } from "src/app/models/Tournament";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: "app-edit-tournament",
@@ -11,16 +12,19 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class EditTournamentComponent implements OnInit {
   private id: number;
-  tournament: Tournament;
+  private tournament: Tournament;
+  private isLogged: boolean;
 
   constructor(
     private apiService: AppServiceService,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private router: Router,
+    private tokenStorageService: TokenStorageService,
   ) {}
 
   ngOnInit() {
+    this.routeIfNotLoggedIn();
     this.tournament = new Tournament();
 
     this.route.params.forEach((params: Params) => {
@@ -56,6 +60,18 @@ export class EditTournamentComponent implements OnInit {
         console.log("Error: " + e.error);
       }
     );
+  }
+
+  routeIfNotLoggedIn() {
+    if (!this.tokenStorageService.getToken()) {
+      this.isLogged = false;
+
+      const link = ["/login"];
+      console.log("Link: " + JSON.stringify(link));
+      this.router.navigate(link);
+      console.log("Is logger: " + this.isLogged);
+      console.log("Username: " + this.tokenStorageService.getUsername());
+    }
   }
 
   getTournament() {
