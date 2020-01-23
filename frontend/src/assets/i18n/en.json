@@ -2,13 +2,19 @@
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
     "SELECT": "Change language",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "ADDTOURNAMENT": "Add tournament",
+    "LISTOFTOURNAMENT": "List of tournaments",
+    "MYTOURNAMENTS": "My tournaments"
   },
   "LOGIN":{
     "LOGIN": "Login",
+     "REGISTER": "Register",
     "USERNAME": "Username",
     "PASSWORD": "Password",
     "WELCOME": "Welcome",
-    "CORRETLOGIN": "Poprawne logowanie"
+    "CORRECTLOGIN": "Correct login",
+    "INCORRETLOGIN": "Incorrect login"
+
   }
 }

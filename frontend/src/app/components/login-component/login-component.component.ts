@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { LoginForm } from "src/app/models/loginForm.model";
 import { TokenStorageService } from "src/app/service/token-storage.service";
-import { Tournament } from 'src/app/models/Tournament';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { Tournament } from "src/app/models/Tournament";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-login-component",
   templateUrl: "./login-component.component.html",
@@ -24,7 +24,7 @@ export class LoginComponentComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private _snackBar: MatSnackBar,
     private translate: TranslateService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.username = "";
@@ -35,17 +35,15 @@ export class LoginComponentComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
     }
-    this.translate.get('LOGIN.CORRECTLOGIN').subscribe((res: string) => {
-      this.correctLogin = res;
-  });
+  
   }
 
   login() {
     console.log(
       "Username:  " +
-      this.loginForm.userName +
-      " Password: " +
-      this.loginForm.password
+        this.loginForm.userName +
+        " Password: " +
+        this.loginForm.password
     );
 
     this.appService.login(this.loginForm).subscribe(
@@ -54,18 +52,15 @@ export class LoginComponentComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         this.isLogged = true;
-        this.openSnackBar(this.correctLogin, "OK");
+        this.openSnackBarForCorrectLogin("OK");
 
         setTimeout(() => {
           window.location.reload();
-        },
-          1000);
-
+        }, 1000);
       },
       e => {
         console.log("Error: " + e.error);
-        this.openSnackBar("Invalid username or passowrd", "OK");
-
+        this.openSnackBarForIncorrect("OK");
       }
     );
   }
@@ -75,10 +70,23 @@ export class LoginComponentComponent implements OnInit {
     window.location.reload();
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
+  openSnackBarForIncorrect(action: string) {
+    this.translate.get("LOGIN.INCORRECTLOGIN").subscribe((res: string) => {
+      this.incorrectLogin = res;
+    });
+    this._snackBar.open(this.incorrectLogin, action, {
+      duration: 2000
     });
   }
 
+
+  openSnackBarForCorrectLogin(action: string) {
+   
+    this.translate.get("LOGIN.CORRECTLOGIN").subscribe((res: string) => {
+      this.correctLogin = res;
+    });
+    this._snackBar.open(this.correctLogin, action, {
+      duration: 2000
+    });
+  }
 }

@@ -2,13 +2,19 @@
   "HOME": {
     "TITLE": "Bonjour Angular avec ngx-translate !",
     "SELECT": "Zmień język",
-    "LOGOUT": "Wyloguj"
+    "LOGOUT": "Wyloguj",
+    "ADDTOURNAMENT": "Dodaj turniej",
+    "LISTOFTOURNAMENT": "Lista turniejów",
+    "MYTOURNAMENTS": "Moje turnieje"
   },
   "LOGIN":{
     "LOGIN": "Zaloguj",
+    "REGISTER": "Rejestracja",
     "USERNAME": "Nazwa użytkownika",
     "PASSWORD": "Hasło",
     "WELCOME": "Witaj",
-    "CORRECTLOGIN": "Poprawne logowanie"
+    "CORRECTLOGIN": "Poprawne logowanie",
+    "INCORRETLOGIN": "Niepoprawne logowanie"
+
   }
 }

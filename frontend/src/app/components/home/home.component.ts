@@ -26,11 +26,11 @@ export class HomeComponent implements OnInit {
     translate.setDefaultLang('en');
     
 
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
+    //const browserLang = translate.getBrowserLang();
+    //translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
 
     this.translate.get('HOME.TITLE').subscribe((res: string) => {
-      console.log(res);
+      console.log("HOME.TITLE"+res);
   });
   }
 
