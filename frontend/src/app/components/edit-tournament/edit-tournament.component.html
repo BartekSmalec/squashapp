@@ -1,72 +1,64 @@
 <div class="main">
-    <p>
-      <mat-form-field appearance="legacy">
-        <mat-label>Tournament name</mat-label>
-        <input [(ngModel)]="this.tournament.tournamentName" matInput placeholder="Tournament name" />
-        <mat-hint>Hint</mat-hint>
+  <p>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'ADDTOURNAMENT.TOURNAMENTNAME' | translate }}     </mat-label>
+      <input [(ngModel)]="this.tournament.tournamentName" matInput />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ 'ADDTOURNAMENT.DATE' | translate }}     </mat-label>
+      <input [(ngModel)]="this.tournament.date" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ 'ADDTOURNAMENT.CITY' | translate }}     </mat-label>
+      <input [(ngModel)]="this.tournament.city" matInput  />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ 'ADDTOURNAMENT.COUNTRY' | translate }}     </mat-label>
+      <input [(ngModel)]="this.tournament.country" matInput  />
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ 'ADDTOURNAMENT.SPORTFACILITY' | translate }}     </mat-label>
+      <input [(ngModel)]="this.tournament.sportFacility" matInput placeholder="Sport facility" />
+    </mat-form-field>
+  </p>
+  <p>
+      <mat-form-field appearance="standard">
+        <mat-label>{{ 'ADDTOURNAMENT.CATEGORY' | translate }}     </mat-label>
+        <input [(ngModel)]="this.tournament.category" matInput  />
+      </mat-form-field>
+    </p>
+    <!-- <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Men</mat-label>
+        <input [(ngModel)]="this.tournament.men" matInput placeholder="Men" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="standard">
-        <mat-label>Date</mat-label>
-        <input [(ngModel)]="this.tournament.date" matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-label>Woman</mat-label>
+        <input [(ngModel)]="this.tournament.woman" matInput placeholder="Woman" />
       </mat-form-field>
-    </p>
+    </p> -->
     <p>
       <mat-form-field appearance="standard">
-        <mat-label>City</mat-label>
-        <input [(ngModel)]="this.tournament.city" matInput placeholder="City" />
-        <mat-hint>Hint</mat-hint>
+        <mat-label>{{ 'ADDTOURNAMENT.PRIZE' | translate }}     </mat-label>
+        <input [(ngModel)]="this.tournament.prize" matInput  />
       </mat-form-field>
     </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Country</mat-label>
-        <input [(ngModel)]="this.tournament.country" matInput placeholder="Country" />
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-    </p>
-  
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Sport facility</mat-label>
-        <input [(ngModel)]="this.tournament.sportFacility" matInput placeholder="Sport facility" />
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Category</mat-label>
-          <input [(ngModel)]="this.tournament.category" matInput placeholder="Category" />
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Men</mat-label>
-          <input [(ngModel)]="this.tournament.men" matInput placeholder="Men" />
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Woman</mat-label>
-          <input [(ngModel)]="this.tournament.woman" matInput placeholder="Woman" />
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Prize</mat-label>
-          <input [(ngModel)]="this.tournament.prize" matInput placeholder="Prize" />
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-    <p>
-      <button mat-raised-button color="primary" (click)="editTournament()">
-        Edit tournament
-      </button>
-    </p>
-  </div>
+  <p>
+    <button mat-raised-button color="primary" (click)="editTournament()">
+      {{ 'ADDTOURNAMENT.EDITTOURNAMENT' | translate }}      </button>
+  </p>
+</div>

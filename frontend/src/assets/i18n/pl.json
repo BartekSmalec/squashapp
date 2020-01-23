@@ -14,7 +14,81 @@
     "PASSWORD": "Hasło",
     "WELCOME": "Witaj",
     "CORRECTLOGIN": "Poprawne logowanie",
-    "INCORRETLOGIN": "Niepoprawne logowanie"
+    "INCORRECTLOGIN": "Niepoprawne logowanie"
+
+  } ,
+  "USER":{
+    "USER": "Użytkownik",
+    "USERNAME": "Nazwa użytkownika: ",
+    "ROLE": "Rola: ",
+    "NAME": "Imię: ",
+    "SURNAME": "Nazwisko: ",
+    "AGE": "Wiek: ",
+    "TOURNAMENTS": "Turnieje: ",
+    "VIEW": "Zobacz",
+    "TOURNAMENT":{
+      "NAME":"Nazwa: ",
+      "DATE":"Data: "
+    }
+  },
+  "TOURNAMENT":{
+    "TOURNAMENTNAME": "Nazwa turnieju: ",
+    "DATE": "Data: ",
+    "CITY": "Miasto: ",
+    "COUNTRY": "Kraj: ",
+    "SPORTFACILITY" : "Obiekt sportowy: ",
+    "CATEGORY" :"Kategoria: ",
+    "PRIZE": "Pula nagród: "
+  },
+  "LISTOFTOURNAMENTS":{
+    "NAME": "Nazwa",
+    "ADDMATCH": "Dodaj mecz",
+    "JOIN":"Dołącz",
+    "UNJOIN": "Wypisz się",
+    "VIEW": "Zobacz",
+    "EDIT": "Edytuj",
+    "DELETE" : "Usuń",
+    "DATE": "Data"
+
+  },
+  "ADDMATCH":{
+    "DATE": "Data",
+    "ROUND": "Runda",
+    "FIRSTPERSON": "Pierwsza osoba",
+    "SECONDPERSON" : "Druga osoba",
+    "ADDMATCH" : "Dodaj mecz",
+    "ADDCOMMENT" : "Dodaj komentarz",
+    "COMMENT" : "Komentarz",
+    "AUTHOR" : "Autor",
+    "ADDSET" :"Dodaj set"
+  },
+  "ADDSET":{
+    "FIRSTPERSONRESULT": "Wynik pierwszej osoby",
+    "SECONDPERSONRESULT" : "Wynik drugiej osoby",
+    "WINNER" : "Zwycięzca",
+    "ADDSET" : "Dodaj set"
+  },
+  "REGISTER":{
+    "USERNAME": "Nazwa użytkownika",
+    "PASSWORD" :"Hasło",
+    "REPEATEDPASSWORD" :"Powtórz hasło",
+    "NAME" : "Imię",
+    "SURNAME" : "Nazwisko",
+    "AGE" : "Wiek",
+    "REGISTER": "Zarejestruj"
+  },
+  "ADDTOURNAMENT":{
+    "TOURNAMENTNAME" : "Nazwa turnieju",
+    "DATE" : "Data",
+    "CITY" : "Miasto",
+    "COUNTRY" : "Kraj",
+    "SPORTFACILITY" : "Obiekt sportowy",
+    "CATEGORY" : "Kategoria",
+    "PRIZE" : "Cena",
+    "ADDTOURNAMENT" : "Dodaj tuniej",
+    "EDITTOURNAMENT" : "Edytuj tuniej"
 
   }
+
+
 }

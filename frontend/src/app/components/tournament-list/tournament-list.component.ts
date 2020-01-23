@@ -83,7 +83,6 @@ export class TournamentListComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
-    "tournamentId",
     "tournamentName",
     "date",
     "view",

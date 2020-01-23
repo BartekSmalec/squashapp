@@ -1,43 +1,44 @@
 <div class="container">
   <div class="user">
-    <br>
-    <b>User: </b>
+    <br />
+    <b> {{ "USER.USER" | translate }} </b>
     <li>
-      Username: <b>{{ user.userName }}</b>
+      {{ "USER.USERNAME" | translate }} <b>{{ user.userName }}</b>
     </li>
 
     <li>
-      Role: <b>{{ user.roles }}</b>
+      {{ "USER.ROLE" | translate }}<b>{{ user.roles }}</b>
     </li>
 
     <li>
-      Name: <b>{{ user.name }}</b>
+      {{ "USER.NAME" | translate }} <b>{{ user.name }}</b>
     </li>
 
     <li>
-      Surname:<b> {{ user.surname }}</b>
+      {{ "USER.SURNAME" | translate }}<b> {{ user.surname }}</b>
     </li>
 
     <li>
-      Age: <b>{{ user.age }}</b>
+      {{ "USER.AGE" | translate }} <b>{{ user.age }}</b>
     </li>
   </div>
 
   <div class="tournaments">
-      <br>
-    <b>Tournaments: </b>
+    <br />
+    <b> {{ "USER.TOURNAMENTS" | translate }}</b>
     <li *ngFor="let tournament of tournaments; index as i">
-      Name:
+      {{ "USER.TOURNAMENT.NAME" | translate }}
       <b>{{ tournament.tournamentName }}</b>
-      Date:
+      {{ "USER.TOURNAMENT.DATE" | translate }}
+
       <b>{{ tournament.date }}</b>
       <button
-      (click)="goToTournament(tournament.tournamentId)"
-      mat-raised-button
-      color="primary"
-    >
-      View
-    </button>
+        (click)="goToTournament(tournament.tournamentId)"
+        mat-raised-button
+        color="primary"
+      >
+        {{ "USER.VIEW" | translate }}
+      </button>
     </li>
   </div>
 </div>

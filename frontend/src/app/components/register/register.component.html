@@ -1,51 +1,46 @@
 <div class="main">
   <p>
     <mat-form-field appearance="legacy">
-      <mat-label>Username</mat-label>
+      <mat-label>{{ "REGISTER.USERNAME" | translate }} </mat-label>
       <input [(ngModel)]="this.user.userName" matInput placeholder="Username" />
-      <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>Password</mat-label>
+      <mat-label>{{ "REGISTER.PASSWORD" | translate }} </mat-label>
       <input type="password" [(ngModel)]="this.user.password" matInput placeholder="Password" />
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>Repeated password</mat-label>
+      <mat-label>{{ "REGISTER.REPEATEDPASSWORD" | translate }} </mat-label>
       <input type="password" [(ngModel)]="this.repeatedPassword" matInput placeholder="Repeated password" />
-      <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>Name</mat-label>
+      <mat-label>{{ "REGISTER.NAME" | translate }} </mat-label>
       <input [(ngModel)]="this.user.name" matInput placeholder="Name" />
-      <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>Surname</mat-label>
+      <mat-label>{{ "REGISTER.SURNAME" | translate }} </mat-label>
       <input [(ngModel)]="this.user.surname" matInput placeholder="Surname" />
-      <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>Age</mat-label>
+      <mat-label>{{ "REGISTER.AGE" | translate }} </mat-label>
       <input [(ngModel)]="this.user.age" matInput placeholder="Age" />
-      <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
   <p>
     <button mat-raised-button color="primary" (click)="register()">
-      Register
+      {{ "REGISTER.REGISTER" | translate }} 
     </button>
   </p>
 </div>

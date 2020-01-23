@@ -87,7 +87,6 @@ export class AddMatchComponent implements OnInit {
   
 
   displayedColumns: string[] = [
-    "matchId",
     "firstPerson",
     "secondPerson",
     "round",

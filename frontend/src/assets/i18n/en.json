@@ -14,7 +14,78 @@
     "PASSWORD": "Password",
     "WELCOME": "Welcome",
     "CORRECTLOGIN": "Correct login",
-    "INCORRETLOGIN": "Incorrect login"
+    "INCORRECTLOGIN": "Incorrect login"
+
+  },
+  "USER":{
+    "USER": "User: ",
+    "USERNAME": "Username: ",
+    "ROLE": "Role: ",
+    "NAME": "Name: ",
+    "SURNAME": "Surname: ",
+    "AGE": "Age: ",
+    "TOURNAMENTS": "Tournamets: ",
+    "VIEW": "View",
+    "TOURNAMENT":{
+      "NAME":"Name: ",
+      "DATE":"Date: "
+    }
+  },
+  "TOURNAMENT":{
+    "TOURNAMENTNAME": "Tournament name: ",
+    "DATE": "Date: ",
+    "CITY": "City: ",
+    "COUNTRY": "Country: ",
+    "SPORTFACILITY" : "Sport facility: ",
+    "CATEGORY" :"Category: ",
+    "PRIZE": "Prize: "
+  },
+  "LISTOFTOURNAMENTS":{
+    "NAME": "Name",
+    "ADDMATCH": "Add match",
+    "JOIN":"Join",
+    "UNJOIN": "Unjoin",
+    "VIEW": "View",
+    "EDIT": "Edit",
+    "DELETE" : "Delete",
+    "DATE": "Date"
+  },
+  "ADDMATCH":{
+    "DATE": "Date",
+    "ROUND": "Round",
+    "FIRSTPERSON": "First person",
+    "SECONDPERSON" : "Second person",
+    "ADDMATCH" : "Add match",
+    "ADDCOMMENT" : "Add comment",
+    "COMMENT" : "Comment",
+    "AUTHOR" : "Author",
+    "ADDSET" :"Add set"
+  },
+  "ADDSET":{
+    "FIRSTPERSONRESULT": "First person result",
+    "SECONDPERSONRESULT" : "Second person result",
+    "WINNER" : "Winner",
+    "ADDSET" : "Add set"
+  },
+  "REGISTER":{
+    "USERNAME": "Username",
+    "PASSWORD" :"Password",
+    "REPEATEDPASSWORD" :"Repeated password",
+    "NAME" : "Name",
+    "SURNAME" : "Surname",
+    "AGE" : "Age",
+    "REGISTER": "Register"
+  },
+  "ADDTOURNAMENT":{
+    "TOURNAMENTNAME" : "Tournament name",
+    "DATE" : "Date",
+    "CITY" : "City",
+    "COUNTRY" : "Country",
+    "SPORTFACILITY" : "Sport facility",
+    "CATEGORY" : "Category",
+    "PRIZE" : "Prize",
+    "ADDTOURNAMENT" : "Add tournament",
+    "EDITTOURNAMENT" : "Edit tournament"
 
   }
 }
