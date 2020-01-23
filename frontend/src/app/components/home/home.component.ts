@@ -22,12 +22,16 @@ export class HomeComponent implements OnInit {
     private router: Router,
     public translate: TranslateService
   ) {
-    translate.addLangs(['en', 'fr']);
+    translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
     
 
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
+
+    this.translate.get('HOME.TITLE').subscribe((res: string) => {
+      console.log(res);
+  });
   }
 
   ngOnInit() {
@@ -35,6 +39,8 @@ export class HomeComponent implements OnInit {
       this.isLogged = true;
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
+      
+     
     }
   }
 
