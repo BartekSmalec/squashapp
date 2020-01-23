@@ -4,6 +4,8 @@ import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Tournament } from "src/app/models/Tournament";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Router } from "@angular/router";
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: "app-home",
@@ -17,8 +19,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private tokenStorage: TokenStorageService,
     private apiService: AppServiceService,
-    private router: Router
-  ) {}
+    private router: Router,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang('en');
+    
+
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+  }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
