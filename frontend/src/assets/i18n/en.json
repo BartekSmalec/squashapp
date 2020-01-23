@@ -1,6 +1,14 @@
 {
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
-    "SELECT": "Change language"
+    "SELECT": "Change language",
+    "LOGOUT": "Logout"
+  },
+  "LOGIN":{
+    "LOGIN": "Login",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "WELCOME": "Welcome",
+    "CORRETLOGIN": "Poprawne logowanie"
   }
 }

@@ -4,6 +4,7 @@ import { LoginForm } from "src/app/models/loginForm.model";
 import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Tournament } from 'src/app/models/Tournament';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: "app-login-component",
   templateUrl: "./login-component.component.html",
@@ -15,11 +16,14 @@ export class LoginComponentComponent implements OnInit {
   resposne: String;
   loginForm: LoginForm;
   isLogged: boolean;
+  correctLogin: string;
+  incorrectLogin: string;
 
   constructor(
     private appService: AppServiceService,
     private tokenStorage: TokenStorageService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -31,6 +35,9 @@ export class LoginComponentComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
     }
+    this.translate.get('LOGIN.CORRECTLOGIN').subscribe((res: string) => {
+      this.correctLogin = res;
+  });
   }
 
   login() {
@@ -47,7 +54,7 @@ export class LoginComponentComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         this.isLogged = true;
-        this.openSnackBar("Correct login", "OK");
+        this.openSnackBar(this.correctLogin, "OK");
 
         setTimeout(() => {
           window.location.reload();

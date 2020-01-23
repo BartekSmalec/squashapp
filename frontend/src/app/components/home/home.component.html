@@ -8,7 +8,6 @@
   <!-- <button mat-raised-button color="primary" (click)="get()">getRestrictedAuthorities</button> -->
   
   <div>
-    <h2>{{ 'HOME.TITLE' | translate }}</h2>
     <label>
       {{ 'HOME.SELECT' | translate }}
       <select #langSelect (change)="translate.use(langSelect.value)">
@@ -19,7 +18,7 @@
   
   <div *ngIf="this.isLogged">
     <!-- Zalogowany jako {{ this.tokenStorage.username }} -->
-    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    <button mat-raised-button color="primary" (click)="logout()">{{ 'HOME.LOGOUT' | translate }}</button>
   </div>
 
 </mat-toolbar>
@@ -30,7 +29,7 @@
     <mat-drawer mode="side" opened>
       <mat-nav-list>
         <div *ngIf="!this.isLogged">
-          <mat-list-item routerLink="/login">Login</mat-list-item>
+          <mat-list-item routerLink="/login">{{ 'LOGIN.LOGIN' | translate }} </mat-list-item>
         </div>
 
         <div *ngIf="!this.isLogged">
