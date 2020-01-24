@@ -83,7 +83,8 @@
     "SPCANTBENULL": "Second person result can't be null",
     "FPCANTBEASTRING": "First person can't be string",
     "SPCANTBEASTRING": "Second person can't be string",
-    "WINNERCANTBENULL": "Winner can't be null"
+    "WINNERCANTBENULL": "Winner can't be null",
+    "NUMBEROFSET": "Maximum number of sets: "
 
 
 
@@ -128,7 +129,14 @@
     "PRIZECANTBEMPTY" : "Prize can't be empty",
     "PRIZENUMERIC" : "Prize must be numeric",
     "ADDED" :  "Added tournament",
-    "EDITED" : "Edited tournament"
+    "EDITED" : "Edited tournament",
+    "NUMOFSET" : "Number of sets",
+    "TYPEOFCOUNTINGRESULT" : "How to count result",
+    "NSCATNBENULL" : "Number of set can't be null",
+    "NSNUMERIC": "Number of set must be numeric",
+    "TYPEOFCOUNTINGRESULTCANTBENULL" : "Type of counting result can't be null",
+    "PERMATCH" : "Per match",
+    "PERSET" : "Per set"
 
   }
 }

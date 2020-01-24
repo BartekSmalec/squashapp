@@ -1,45 +1,52 @@
 <div class="main">
   <p>
     <mat-form-field appearance="legacy">
-      <mat-label>{{ 'ADDTOURNAMENT.TOURNAMENTNAME' | translate }}     </mat-label>
+      <mat-label>{{ "ADDTOURNAMENT.TOURNAMENTNAME" | translate }} </mat-label>
       <input [(ngModel)]="this.tournament.tournamentName" matInput />
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>{{ 'ADDTOURNAMENT.DATE' | translate }}     </mat-label>
-      <input [(ngModel)]="this.tournament.date" matInput [matDatepicker]="picker">
+      <mat-label>{{ "ADDTOURNAMENT.DATE" | translate }} </mat-label>
+      <input
+        [(ngModel)]="this.tournament.date"
+        matInput
+        [matDatepicker]="picker"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>{{ 'ADDTOURNAMENT.CITY' | translate }}     </mat-label>
-      <input [(ngModel)]="this.tournament.city" matInput  />
+      <mat-label>{{ "ADDTOURNAMENT.CITY" | translate }} </mat-label>
+      <input [(ngModel)]="this.tournament.city" matInput />
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>{{ 'ADDTOURNAMENT.COUNTRY' | translate }}     </mat-label>
-      <input [(ngModel)]="this.tournament.country" matInput  />
+      <mat-label>{{ "ADDTOURNAMENT.COUNTRY" | translate }} </mat-label>
+      <input [(ngModel)]="this.tournament.country" matInput />
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
-      <mat-label>{{ 'ADDTOURNAMENT.SPORTFACILITY' | translate }}     </mat-label>
-      <input [(ngModel)]="this.tournament.sportFacility" matInput placeholder="Sport facility" />
+      <mat-label>{{ "ADDTOURNAMENT.SPORTFACILITY" | translate }} </mat-label>
+      <input
+        [(ngModel)]="this.tournament.sportFacility"
+        matInput
+        placeholder="Sport facility"
+      />
     </mat-form-field>
   </p>
   <p>
-      <mat-form-field appearance="standard">
-        <mat-label>{{ 'ADDTOURNAMENT.CATEGORY' | translate }}     </mat-label>
-        <input [(ngModel)]="this.tournament.category" matInput  />
-      </mat-form-field>
-    </p>
-    <!-- <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ "ADDTOURNAMENT.CATEGORY" | translate }} </mat-label>
+      <input [(ngModel)]="this.tournament.category" matInput />
+    </mat-form-field>
+  </p>
+  <!-- <p>
       <mat-form-field appearance="standard">
         <mat-label>Men</mat-label>
         <input [(ngModel)]="this.tournament.men" matInput placeholder="Men" />
@@ -51,14 +58,37 @@
         <input [(ngModel)]="this.tournament.woman" matInput placeholder="Woman" />
       </mat-form-field>
     </p> -->
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>{{ 'ADDTOURNAMENT.PRIZE' | translate }}     </mat-label>
-        <input [(ngModel)]="this.tournament.prize" matInput  />
-      </mat-form-field>
-    </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ "ADDTOURNAMENT.PRIZE" | translate }} </mat-label>
+      <input [(ngModel)]="this.tournament.prize" matInput />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ "ADDTOURNAMENT.NUMOFSET" | translate }} </mat-label>
+      <input [(ngModel)]="this.tournament.numOfSets" matInput />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label
+        >{{ "ADDTOURNAMENT.TYPEOFCOUNTINGRESULT" | translate }}
+      </mat-label>
+      <!-- <input [(ngModel)]="this.tournament.typeOfCountingResult" matInput  /> -->
+      <select [(ngModel)]="this.typeOfCounting" matNativeControl required>
+        <option value="PERMATCH"
+          >{{ "ADDTOURNAMENT.PERMATCH" | translate }}
+        </option>
+        <option value="PERSET"
+          >{{ "ADDTOURNAMENT.PERSET" | translate }}
+        </option>
+      </select>
+    </mat-form-field>
+  </p>
   <p>
     <button mat-raised-button color="primary" (click)="editTournament()">
-      {{ 'ADDTOURNAMENT.EDITTOURNAMENT' | translate }}      </button>
+      {{ "ADDTOURNAMENT.EDITTOURNAMENT" | translate }}
+    </button>
   </p>
 </div>

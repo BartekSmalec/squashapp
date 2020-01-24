@@ -57,6 +57,25 @@
           <input [(ngModel)]="this.tournament.prize" matInput  />
         </mat-form-field>
       </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ 'ADDTOURNAMENT.NUMOFSET' | translate }}     </mat-label>
+          <input [(ngModel)]="this.tournament.numOfSets" matInput  />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ 'ADDTOURNAMENT.TYPEOFCOUNTINGRESULT' | translate }}     </mat-label>
+          <!-- <input [(ngModel)]="this.tournament.typeOfCountingResult" matInput  /> -->
+            <select [(ngModel)]="this.typeOfCounting" matNativeControl required>
+              <option value="PERMATCH">{{ 'ADDTOURNAMENT.PERMATCH' | translate }} </option>
+              <option value="PERSET">{{ 'ADDTOURNAMENT.PERSET' | translate }} </option>
+            </select>
+          </mat-form-field>
+      </p>
+
+
+
     <p>
       <button mat-raised-button color="primary" (click)="addTournament()">
         {{ 'ADDTOURNAMENT.ADDTOURNAMENT' | translate }}      </button>

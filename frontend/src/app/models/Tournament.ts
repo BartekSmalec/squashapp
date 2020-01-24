@@ -17,6 +17,8 @@ export class Tournament implements Deserializable
     men?: boolean;
     woman?: boolean;
     prize?: number;
+    numOfSets?: number;
+    typeOfCountingResult?: boolean;
     matches?: Match[];
     comments?: Comment[];
     participants?: User[];

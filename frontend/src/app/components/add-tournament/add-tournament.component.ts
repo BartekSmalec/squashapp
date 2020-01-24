@@ -14,6 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class AddTournamentComponent implements OnInit {
   private tournament: Tournament;
   private isLogged: boolean;
+  private typeOfCounting;
 
   constructor(
     private apiService: AppServiceService,
@@ -31,6 +32,12 @@ export class AddTournamentComponent implements OnInit {
   addTournament() {
     console.log("Tournament: " + JSON.stringify(this.tournament));
     if (this.validateTournamentForm()) {
+      if (this.typeOfCounting == "PERMATCH") {
+        this.tournament.typeOfCountingResult = true;
+      } else if (this.typeOfCounting == "PERSET") {
+        this.tournament.typeOfCountingResult = false;
+      }
+
       this.apiService.addTournament(this.tournament).subscribe(
         data => {
           console.log("Response" + JSON.stringify(data));
@@ -69,7 +76,6 @@ export class AddTournamentComponent implements OnInit {
       duration: 2000
     });
   }
-
 
   validateTournamentForm(): boolean {
     if (
@@ -114,13 +120,27 @@ export class AddTournamentComponent implements OnInit {
       this.openSnackBarForValidation("ADDTOURNAMENT.CATEGORYCANTBEEMPTY", "OK");
 
       return false;
+    } else if (this.tournament.prize == undefined) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.PRIZECANTBEMPTY", "OK");
+
+      return false;
     } else if (!this.isNumber(this.tournament.prize)) {
       this.openSnackBarForValidation("ADDTOURNAMENT.PRIZENUMERIC", "OK");
 
       return false;
-    }
-    else if (this.tournament.prize == undefined) {
-      this.openSnackBarForValidation("ADDTOURNAMENT.PRIZECANTBEMPTY", "OK");
+    } else if (this.tournament.numOfSets == undefined) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.NSCATNBENULL", "OK");
+
+      return false;
+    } else if (!this.isNumber(this.tournament.numOfSets)) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.NSNUMERIC", "OK");
+
+      return false;
+    } else if (this.typeOfCounting == undefined) {
+      this.openSnackBarForValidation(
+        "ADDTOURNAMENT.TYPEOFCOUNTINGRESULTCANTBENULL",
+        "OK"
+      );
 
       return false;
     } else {

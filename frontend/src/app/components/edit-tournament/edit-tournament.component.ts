@@ -3,8 +3,8 @@ import { AppServiceService } from "src/app/service/app-service.service";
 import { Params, ActivatedRoute, Router } from "@angular/router";
 import { Tournament } from "src/app/models/Tournament";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TokenStorageService } from "src/app/service/token-storage.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-edit-tournament",
@@ -15,6 +15,7 @@ export class EditTournamentComponent implements OnInit {
   private id: number;
   private tournament: Tournament;
   private isLogged: boolean;
+  private typeOfCounting: string;
 
   constructor(
     private apiService: AppServiceService,
@@ -22,7 +23,7 @@ export class EditTournamentComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     private tokenStorageService: TokenStorageService,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -43,28 +44,33 @@ export class EditTournamentComponent implements OnInit {
   editTournament() {
     console.log("Tournament: " + JSON.stringify(this.tournament));
 
-    if(this.validateTournamentForm()){
+    if (this.typeOfCounting == "PERMATCH") {
+      this.tournament.typeOfCountingResult = true;
+    } else if (this.typeOfCounting == "PERSET") {
+      this.tournament.typeOfCountingResult = false;
+    }
 
-    this.apiService.addTournament(this.tournament).subscribe(
-      data => {
-        console.log("Response" + JSON.stringify(data));
+    if (this.validateTournamentForm()) {
+      this.apiService.addTournament(this.tournament).subscribe(
+        data => {
+          console.log("Response" + JSON.stringify(data));
 
-        //this.openSnackBar("Edited tournamet", "OK");
-        this.openSnackBarForValidation("ADDTOURNAMENT.EDITED", "OK");
+          //this.openSnackBar("Edited tournamet", "OK");
+          this.openSnackBarForValidation("ADDTOURNAMENT.EDITED", "OK");
 
-        const link = ["/tournamentList"];
-        console.log("Link: " + JSON.stringify(link));
+          const link = ["/tournamentList"];
+          console.log("Link: " + JSON.stringify(link));
 
-        setTimeout(() => {
-          this.router.navigate(link);
-        }, 2000);
-      },
-      e => {
-        this.openSnackBar("Can't edit tournament", "OK");
+          setTimeout(() => {
+            this.router.navigate(link);
+          }, 2000);
+        },
+        e => {
+          this.openSnackBar("Can't edit tournament", "OK");
 
-        console.log("Error: " + e.error);
-      }
-    );
+          console.log("Error: " + e.error);
+        }
+      );
     }
   }
 
@@ -85,6 +91,11 @@ export class EditTournamentComponent implements OnInit {
       data => {
         console.log(JSON.stringify(data));
         this.tournament = data;
+        if (this.tournament.typeOfCountingResult == true) {
+          this.typeOfCounting = "PERMATCH";
+        } else if (this.tournament.typeOfCountingResult == false) {
+          this.typeOfCounting = "PERSET";
+        }
       },
       e => {
         console.log("Error: " + e.error);
@@ -97,7 +108,6 @@ export class EditTournamentComponent implements OnInit {
       duration: 2000
     });
   }
-
 
   validateTournamentForm(): boolean {
     if (
@@ -142,13 +152,27 @@ export class EditTournamentComponent implements OnInit {
       this.openSnackBarForValidation("ADDTOURNAMENT.CATEGORYCANTBEEMPTY", "OK");
 
       return false;
+    } else if (this.tournament.prize == undefined) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.PRIZECANTBEMPTY", "OK");
+
+      return false;
     } else if (!this.isNumber(this.tournament.prize)) {
       this.openSnackBarForValidation("ADDTOURNAMENT.PRIZENUMERIC", "OK");
 
       return false;
-    }
-    else if (this.tournament.prize == undefined) {
-      this.openSnackBarForValidation("ADDTOURNAMENT.PRIZECANTBEMPTY", "OK");
+    } else if (this.tournament.numOfSets == undefined) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.NSCATNBENULL", "OK");
+
+      return false;
+    } else if (!this.isNumber(this.tournament.numOfSets)) {
+      this.openSnackBarForValidation("ADDTOURNAMENT.NSNUMERIC", "OK");
+
+      return false;
+    } else if (this.typeOfCounting == undefined) {
+      this.openSnackBarForValidation(
+        "ADDTOURNAMENT.TYPEOFCOUNTINGRESULTCANTBENULL",
+        "OK"
+      );
 
       return false;
     } else {

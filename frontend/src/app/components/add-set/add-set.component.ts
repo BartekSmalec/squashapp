@@ -56,11 +56,11 @@ export class AddSetComponent implements OnInit {
 
   addSet() {
     if (this.validateSetForm()) {
-      if (this.matchSets.length >= 4) {
+      if (this.matchSets.length >= (this.tournament.numOfSets - 1)) {
         this.active = false;
       }
 
-      if (this.matchSets.length < 5) {
+      if (this.matchSets.length < (this.tournament.numOfSets)) {
         this.apiService
           .addMatchSet(this.matchSet, this.id, this.username)
           .subscribe(

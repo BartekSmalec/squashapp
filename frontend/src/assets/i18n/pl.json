@@ -83,7 +83,9 @@
     "SPCANTBENULL": "Wynik drugiej osoby nie może być pusty",
     "FPCANTBEASTRING": "Wynik pierwszej osoby nie może być textem",
     "SPCANTBEASTRING": "Wynik drugiej osoby nie może być textem",
-    "WINNERCANTBENULL": "Zwycięzca nie może być pusty"
+    "WINNERCANTBENULL": "Zwycięzca nie może być pusty",
+    "NUMBEROFSET": "Maksymalna liczba setów: "
+
   },
   "REGISTER":{
     "USERNAME": "Nazwa użytkownika",
@@ -125,8 +127,14 @@
     "PRIZECANTBEMPTY" : "Pula nagród nie może być pusta",
     "PRIZENUMERIC" : "Pula nagród musi być liczbą",
     "ADDED" :  "Dodano turniej",
-    "EDITED" : "Edytowano turniej "
-
+    "EDITED" : "Edytowano turniej ",
+    "NUMOFSET" : "Liczba setów",
+    "TYPEOFCOUNTINGRESULT" : "Sposób liczenia wyniku",
+    "NSCATNBENULL" : "Liczba setów nie może być pusta",
+    "NSNUMERIC": "Liczba setów musi być liczbą",
+    "TYPEOFCOUNTINGRESULTCANTBENULL" : "Sposób liczenie wyniku nie może być pusty",
+    "PERMATCH" : "Wygrane mecze",
+    "PERSET" : "Wygrane sety"
 
 
 

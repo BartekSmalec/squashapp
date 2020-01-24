@@ -35,6 +35,10 @@ public class Tournament {
     private Boolean woman;
     @Column(name = "prize")
     private int prize;
+    @Column(name = "number_of_sets")
+    private int numOfSets;
+    @Column(name = "type_of_counting_result")
+    private boolean typeOfCountingResult;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
@@ -49,6 +53,22 @@ public class Tournament {
 
     public Set<User> getParticipants() {
         return participants;
+    }
+
+    public int getNumOfSets() {
+        return numOfSets;
+    }
+
+    public void setNumOfSets(int numOfSets) {
+        this.numOfSets = numOfSets;
+    }
+
+    public boolean isTypeOfCountingResult() {
+        return typeOfCountingResult;
+    }
+
+    public void setTypeOfCountingResult(boolean typeOfCountingResult) {
+        this.typeOfCountingResult = typeOfCountingResult;
     }
 
     public void setParticipants(Set<User> participants) {
