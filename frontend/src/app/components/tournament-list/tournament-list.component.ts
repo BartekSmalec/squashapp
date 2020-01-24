@@ -7,6 +7,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 
 export interface PeriodicElement {
   name: string;
@@ -44,7 +45,8 @@ export class TournamentListComponent implements OnInit {
     private apiService: AppServiceService,
     private tokenStorageService: TokenStorageService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -136,7 +138,7 @@ export class TournamentListComponent implements OnInit {
         console.log("Corrent: " + JSON.stringify(data));
         this.openSnackBar("Deleted", "OK");
         this.getTournaments();
-        
+
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -154,7 +156,7 @@ export class TournamentListComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  goToTournament(id: number){
+  goToTournament(id: number) {
     const link = ["/tournament", id];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
@@ -164,24 +166,28 @@ export class TournamentListComponent implements OnInit {
     this.apiService.addParticipant(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        this.openSnackBar("Joined", "OK");
+        //this.openSnackBar("Joined", "OK");
+        this.openSnackBarForValidation("LISTOFTOURNAMENTS.JOINED", "OK");
       },
       e => {
         console.log("Error: " + e.error);
-        this.openSnackBar("You already joined", "OK");
+        //this.openSnackBar("You already joined", "OK");
+        this.openSnackBarForValidation("LISTOFTOURNAMENTS.YOUJOINED", "OK");
       }
     );
   }
 
-  unjoin(id: number){
+  unjoin(id: number) {
     this.apiService.removeParticipant(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        this.openSnackBar("Removed", "OK");
+        //this.openSnackBar("Removed", "OK");
+        this.openSnackBarForValidation("LISTOFTOURNAMENTS.UNJOINED", "OK");
       },
       e => {
         console.log("Error: " + e.error);
-        this.openSnackBar("You can't remove", "OK");
+        //this.openSnackBar("You can't remove", "OK");
+        this.openSnackBarForValidation("LISTOFTOURNAMENTS.CANTUNJOIN", "OK");
       }
     );
   }
@@ -189,6 +195,17 @@ export class TournamentListComponent implements OnInit {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000
+    });
+  }
+
+  // LISTOFTOURNAMENTS.JOINED
+
+  openSnackBarForValidation(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
     });
   }
 }

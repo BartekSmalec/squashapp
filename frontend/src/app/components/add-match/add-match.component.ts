@@ -126,7 +126,7 @@ export class AddMatchComponent implements OnInit {
         .subscribe(
           (match: Match) => {
             this.matchResposne = new Match().deserialize(match);
-            
+
             //this.openSnackBar("ADDMATCH.DATECANTBENULL", "OK");
 
             console.log(this.matchResposne);
@@ -143,14 +143,16 @@ export class AddMatchComponent implements OnInit {
   addCommentButton() {
     console.log("Thid comment: " + this.comment.content);
 
-    this.apiService.addComment(this.comment, this.id).subscribe(
-      (comment: Comment) => {
-        this.getTournamentMatches();
-      },
-      e => {
-        console.log("Error: " + e.error);
-      }
-    );
+    if (this.validateCommentForm()) {
+      this.apiService.addComment(this.comment, this.id).subscribe(
+        (comment: Comment) => {
+          this.getTournamentMatches();
+        },
+        e => {
+          console.log("Error: " + e.error);
+        }
+      );
+    }
   }
 
   compare(a, b) {
@@ -185,7 +187,6 @@ export class AddMatchComponent implements OnInit {
     this.router.navigate(link);
   }
 
-
   validateAddMatchForm(): boolean {
     if (this.firstPersonName == undefined || this.firstPersonName == "") {
       this.openSnackBar("ADDMATCH.FPCANTBENULL", "OK");
@@ -210,6 +211,15 @@ export class AddMatchComponent implements OnInit {
       this.temporarMatch.date == undefined ||
       this.temporarMatch.date == ""
     ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateCommentForm(): boolean {
+    if (this.comment.content == undefined || this.comment.content == "") {
+      this.openSnackBar("ADDMATCH.COMMENTCANTBENULL", "OK");
 
       return false;
     } else {

@@ -50,7 +50,12 @@
     "VIEW": "View",
     "EDIT": "Edit",
     "DELETE" : "Delete",
-    "DATE": "Date"
+    "DATE": "Date",
+    "JOINED" :"Joined",
+    "YOUJOINED" : "You already joined",
+    "UNJOINED" : "Removed",
+    "CANTUNJOIN" : "You can't remove"
+
   },
   "ADDMATCH":{
     "DATE": "Date",
@@ -66,7 +71,8 @@
     "ROUNDMUSTBENUMERIC" :"Round must be numeric",
     "ROUNDCANTBEEMPTY" : "Round can't be empty",
     "FPCANTBENULL" : "First person can't be empty",
-    "SPCANTBENULL" : "Second person can't be empty"
+    "SPCANTBENULL" : "Second person can't be empty",
+    "COMMENTCANTBENULL" : "Comment can't be empty"
   },
   "ADDSET":{
     "FIRSTPERSONRESULT": "First person result",

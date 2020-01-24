@@ -50,7 +50,11 @@
     "VIEW": "Zobacz",
     "EDIT": "Edytuj",
     "DELETE" : "Usuń",
-    "DATE": "Data"
+    "DATE": "Data",
+    "JOINED" :"Dołączyłeś",
+    "YOUJOINED" : "Już jesteś zapisany",
+    "UNJOINED" : "Usunięto",
+    "CANTUNJOIN" : "Nie jesteś zapisany"
 
   },
   "ADDMATCH":{
@@ -67,7 +71,8 @@
     "ROUNDMUSTBENUMERIC" :"Runda musi być liczbą",
     "ROUNDCANTBEEMPTY" : "Runda nie możę być pusta",
     "FPCANTBENULL" : "Pierwsza osoba nie może być pusta",
-    "SPCANTBENULL" : "Druga osoba nie może być pusta"
+    "SPCANTBENULL" : "Druga osoba nie może być pusta",
+    "COMMENTCANTBENULL" : "Komentarz nie może być pusty"
   },
   "ADDSET":{
     "FIRSTPERSONRESULT": "Wynik pierwszej osoby",
