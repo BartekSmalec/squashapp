@@ -166,12 +166,10 @@ export class TournamentListComponent implements OnInit {
     this.apiService.addParticipant(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        //this.openSnackBar("Joined", "OK");
         this.openSnackBarForValidation("LISTOFTOURNAMENTS.JOINED", "OK");
       },
       e => {
         console.log("Error: " + e.error);
-        //this.openSnackBar("You already joined", "OK");
         this.openSnackBarForValidation("LISTOFTOURNAMENTS.YOUJOINED", "OK");
       }
     );
@@ -181,12 +179,10 @@ export class TournamentListComponent implements OnInit {
     this.apiService.removeParticipant(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        //this.openSnackBar("Removed", "OK");
         this.openSnackBarForValidation("LISTOFTOURNAMENTS.UNJOINED", "OK");
       },
       e => {
         console.log("Error: " + e.error);
-        //this.openSnackBar("You can't remove", "OK");
         this.openSnackBarForValidation("LISTOFTOURNAMENTS.CANTUNJOIN", "OK");
       }
     );

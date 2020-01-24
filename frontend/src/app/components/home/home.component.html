@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="snav.toggle()">
+  <button mat-icon-button (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
   <h1 class="home" (click)="routeToHome()">Squash App</h1>
@@ -31,7 +31,7 @@
 
 <div fxLayout="row">
   <mat-drawer-container>
-    <mat-drawer mode="side" opened>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
       <div class="menu">
         <mat-nav-list>
           <div *ngIf="!this.isLogged">
