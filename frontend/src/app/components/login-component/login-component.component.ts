@@ -35,7 +35,6 @@ export class LoginComponentComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
     }
-  
   }
 
   login() {
@@ -45,24 +44,25 @@ export class LoginComponentComponent implements OnInit {
         " Password: " +
         this.loginForm.password
     );
+    if (this.validateLoginForm()) {
+      this.appService.login(this.loginForm).subscribe(
+        data => {
+          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveUsername(data.username);
+          this.tokenStorage.saveAuthorities(data.authorities);
+          this.isLogged = true;
+          this.openSnackBarForCorrectLogin("OK");
 
-    this.appService.login(this.loginForm).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUsername(data.username);
-        this.tokenStorage.saveAuthorities(data.authorities);
-        this.isLogged = true;
-        this.openSnackBarForCorrectLogin("OK");
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      },
-      e => {
-        console.log("Error: " + e.error);
-        this.openSnackBarForIncorrect("OK");
-      }
-    );
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        },
+        e => {
+          console.log("Error: " + e.error);
+          this.openSnackBarForIncorrect("OK");
+        }
+      );
+    }
   }
 
   logout() {
@@ -79,14 +79,42 @@ export class LoginComponentComponent implements OnInit {
     });
   }
 
-
   openSnackBarForCorrectLogin(action: string) {
-   
     this.translate.get("LOGIN.CORRECTLOGIN").subscribe((res: string) => {
       this.correctLogin = res;
     });
     this._snackBar.open(this.correctLogin, action, {
       duration: 2000
     });
+  }
+
+  validateLoginForm(): boolean {
+    if (this.loginForm.userName == undefined || this.loginForm.userName == "") {
+      this.openSnackBar("LOGIN.UCANTBEEMPTY", "OK");
+
+      return false;
+    } else if (
+      this.loginForm.password == undefined ||
+      this.loginForm.password == ""
+    ) {
+      this.openSnackBar("LOGIN.PCANTBENULL", "OK");
+
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  openSnackBar(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
+    });
+  }
+
+  isNumber(value: string | number): boolean {
+    return value != null && value !== "" && !isNaN(Number(value.toString()));
   }
 }

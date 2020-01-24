@@ -5,7 +5,7 @@ export class MatchSet implements Deserializable
 {
     id?: number;
     firstPerson?: number;
-    secondPerson?: String;
+    secondPerson?: number;
     winner?: User;
    
 

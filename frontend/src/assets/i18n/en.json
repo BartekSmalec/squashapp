@@ -14,7 +14,9 @@
     "PASSWORD": "Password",
     "WELCOME": "Welcome",
     "CORRECTLOGIN": "Correct login",
-    "INCORRECTLOGIN": "Incorrect login"
+    "INCORRECTLOGIN": "Incorrect login",
+    "PCANTBENULL": "Password cant be empty",
+    "UCANTBEEMPTY" : "Username can't be empty"
 
   },
   "USER":{
@@ -59,13 +61,27 @@
     "ADDCOMMENT" : "Add comment",
     "COMMENT" : "Comment",
     "AUTHOR" : "Author",
-    "ADDSET" :"Add set"
+    "ADDSET" :"Add set",
+    "DATECANTBENULL" :"Date can't be empty",
+    "ROUNDMUSTBENUMERIC" :"Round must be numeric",
+    "ROUNDCANTBEEMPTY" : "Round can't be empty",
+    "FPCANTBENULL" : "First person can't be empty",
+    "SPCANTBENULL" : "Second person can't be empty"
   },
   "ADDSET":{
     "FIRSTPERSONRESULT": "First person result",
     "SECONDPERSONRESULT" : "Second person result",
     "WINNER" : "Winner",
-    "ADDSET" : "Add set"
+    "ADDSET" : "Add set",
+    "FPCANTBENULL": "First person result can't be null",
+    "SPCANTBENULL": "Second person result can't be null",
+    "FPCANTBEASTRING": "First person can't be string",
+    "SPCANTBEASTRING": "Second person can't be string",
+    "WINNERCANTBENULL": "Winner can't be null"
+
+
+
+
   },
   "REGISTER":{
     "USERNAME": "Username",
@@ -74,7 +90,18 @@
     "NAME" : "Name",
     "SURNAME" : "Surname",
     "AGE" : "Age",
-    "REGISTER": "Register"
+    "REGISTER": "Register",
+    "UCANTBENULL" : "Username can't be empty",
+    "PCANTBETNULL" : "Password can't be empty",
+    "RPCANTBENULL" : "Repeated password can't be empty",
+    "NCATNBENULL" : "Name can't be empty",
+    "SCANTBENULL" : "Surname can't be empty",
+    "AGECANTBENULL" : "Age can't be empty",
+    "AGENUMERIC" : "Age must be numeric",
+    "PASSNOTEQUAL" : "Passwords not equal",
+    "CORRECT" : "Correct register",
+    "INCORECT" : "Incorrect register",
+    "USEREXIST" : "User already exist"
   },
   "ADDTOURNAMENT":{
     "TOURNAMENTNAME" : "Tournament name",
@@ -85,7 +112,17 @@
     "CATEGORY" : "Category",
     "PRIZE" : "Prize",
     "ADDTOURNAMENT" : "Add tournament",
-    "EDITTOURNAMENT" : "Edit tournament"
+    "EDITTOURNAMENT" : "Edit tournament",
+    "TNCANTBEEMPTY" : "Tournament name can't be empty",
+    "DATECANTBEEMPTY" : "Date can't be empty",
+    "CITYCANTBEEMPTY" : "City can't be empty",
+    "COUNTRYCANTBEEMPTY" : "Country can't be empty",
+    "SFCANTBEEMPTY" : "Sport facility name can't be empty",
+    "CATEGORYCANTBEEMPTY" : "Category can't be empty",
+    "PRIZECANTBEMPTY" : "Prize can't be empty",
+    "PRIZENUMERIC" : "Prize must be numeric",
+    "ADDED" :  "Added tournament",
+    "EDITED" : "Edited tournament"
 
   }
 }

@@ -14,7 +14,9 @@
     "PASSWORD": "Hasło",
     "WELCOME": "Witaj",
     "CORRECTLOGIN": "Poprawne logowanie",
-    "INCORRECTLOGIN": "Niepoprawne logowanie"
+    "INCORRECTLOGIN": "Niepoprawne logowanie",
+    "PCANTBENULL": "Hasło nie może być puste",
+    "UCANTBEEMPTY" : "Nazwa użytkownika nie może być pusta"
 
   } ,
   "USER":{
@@ -60,13 +62,23 @@
     "ADDCOMMENT" : "Dodaj komentarz",
     "COMMENT" : "Komentarz",
     "AUTHOR" : "Autor",
-    "ADDSET" :"Dodaj set"
+    "ADDSET" :"Dodaj set",
+    "DATECANTBENULL" :"Data nie może być pusta",
+    "ROUNDMUSTBENUMERIC" :"Runda musi być liczbą",
+    "ROUNDCANTBEEMPTY" : "Runda nie możę być pusta",
+    "FPCANTBENULL" : "Pierwsza osoba nie może być pusta",
+    "SPCANTBENULL" : "Druga osoba nie może być pusta"
   },
   "ADDSET":{
     "FIRSTPERSONRESULT": "Wynik pierwszej osoby",
     "SECONDPERSONRESULT" : "Wynik drugiej osoby",
     "WINNER" : "Zwycięzca",
-    "ADDSET" : "Dodaj set"
+    "ADDSET" : "Dodaj set",
+    "FPCANTBENULL": "Wynik pierwszej osoby nie może być pusty",
+    "SPCANTBENULL": "Wynik drugiej osoby nie może być pusty",
+    "FPCANTBEASTRING": "Wynik pierwszej osoby nie może być textem",
+    "SPCANTBEASTRING": "Wynik drugiej osoby nie może być textem",
+    "WINNERCANTBENULL": "Zwycięzca nie może być pusty"
   },
   "REGISTER":{
     "USERNAME": "Nazwa użytkownika",
@@ -75,7 +87,19 @@
     "NAME" : "Imię",
     "SURNAME" : "Nazwisko",
     "AGE" : "Wiek",
-    "REGISTER": "Zarejestruj"
+    "REGISTER": "Zarejestruj",
+    "UCANTBENULL" : "Nazwa użytkownika nie może być pusta",
+    "PCANTBETNULL" : "Hasło nie może być puste",
+    "RPCANTBENULL" : "Powtórzone hasło nie może być puste",
+    "NCATNBENULL" : "Imię nie możę być puste",
+    "SCANTBENULL" : "Nazwisko nie może być puste",
+    "AGECANTBENULL" : "Wiek nie może być pusty",
+    "AGENUMERIC" : "Wiek musi być liczbą",
+    "PASSNOTEQUAL" : "Hasła różnią się",
+    "CORRECT" : "Poprawna rejestracja",
+    "INCORECT" : "Niepoprawna rejestracja",
+    "USEREXIST" : "Taki użytkownik już istnieje"
+
   },
   "ADDTOURNAMENT":{
     "TOURNAMENTNAME" : "Nazwa turnieju",
@@ -86,7 +110,20 @@
     "CATEGORY" : "Kategoria",
     "PRIZE" : "Cena",
     "ADDTOURNAMENT" : "Dodaj tuniej",
-    "EDITTOURNAMENT" : "Edytuj tuniej"
+    "EDITTOURNAMENT" : "Edytuj tuniej",
+    "TNCANTBEEMPTY" : "Nazwa turnieju nie możę być pusta",
+    "DATECANTBEEMPTY" : "Data nie może być pusta",
+    "CITYCANTBEEMPTY" : "Miasto nie możę być puste",
+    "COUNTRYCANTBEEMPTY" : "Kraj nie może być pusty",
+    "SFCANTBEEMPTY" : "Obiekt sportowy nie może być pusty",
+    "CATEGORYCANTBEEMPTY" : "Kategoria nie możę być pusta",
+    "PRIZECANTBEMPTY" : "Pula nagród nie może być pusta",
+    "PRIZENUMERIC" : "Pula nagród musi być liczbą",
+    "ADDED" :  "Dodano turniej",
+    "EDITED" : "Edytowano turniej "
+
+
+
 
   }
 

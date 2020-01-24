@@ -2,45 +2,45 @@
   <p>
     <mat-form-field appearance="legacy">
       <mat-label>{{ "REGISTER.USERNAME" | translate }} </mat-label>
-      <input [(ngModel)]="this.user.userName" matInput placeholder="Username" />
+      <input [(ngModel)]="this.user.userName" matInput />
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.PASSWORD" | translate }} </mat-label>
-      <input type="password" [(ngModel)]="this.user.password" matInput placeholder="Password" />
+      <input type="password" [(ngModel)]="this.user.password" matInput />
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.REPEATEDPASSWORD" | translate }} </mat-label>
-      <input type="password" [(ngModel)]="this.repeatedPassword" matInput placeholder="Repeated password" />
+      <input type="password" [(ngModel)]="this.repeatedPassword" matInput />
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.NAME" | translate }} </mat-label>
-      <input [(ngModel)]="this.user.name" matInput placeholder="Name" />
+      <input [(ngModel)]="this.user.name" matInput />
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.SURNAME" | translate }} </mat-label>
-      <input [(ngModel)]="this.user.surname" matInput placeholder="Surname" />
+      <input [(ngModel)]="this.user.surname" matInput />
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.AGE" | translate }} </mat-label>
-      <input [(ngModel)]="this.user.age" matInput placeholder="Age" />
+      <input [(ngModel)]="this.user.age" matInput />
     </mat-form-field>
   </p>
   <p>
     <button mat-raised-button color="primary" (click)="register()">
-      {{ "REGISTER.REGISTER" | translate }} 
+      {{ "REGISTER.REGISTER" | translate }}
     </button>
   </p>
 </div>

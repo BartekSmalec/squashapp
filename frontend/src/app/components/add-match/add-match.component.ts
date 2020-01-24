@@ -6,7 +6,9 @@ import { Match } from "src/app/models/Match";
 import { Comment } from "src/app/models/Comment";
 
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { TokenStorageService } from "src/app/service/token-storage.service";
+import { TranslateService } from "@ngx-translate/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-add-match",
@@ -32,6 +34,8 @@ export class AddMatchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tokenStorageService: TokenStorageService,
+    private translate: TranslateService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -84,8 +88,6 @@ export class AddMatchComponent implements OnInit {
     );
   }
 
-  
-
   displayedColumns: string[] = [
     "firstPerson",
     "secondPerson",
@@ -104,34 +106,38 @@ export class AddMatchComponent implements OnInit {
     firstPersonName: string,
     secondPersonName: string
   ) {
-    console.log(
-      "Date: " +
-        this.temporarMatch.date +
-        "Round: " +
-        this.temporarMatch.round +
-        this.firstPersonName +
-        this.secondPersonName
-    );
-
-    this.apiService
-      .addMatch(
-        this.temporarMatch,
-        this.id,
-        this.firstPersonName,
-        this.secondPersonName
-      )
-      .subscribe(
-        (match: Match) => {
-          this.matchResposne = new Match().deserialize(match);
-
-          console.log(this.matchResposne);
-
-          this.getTournamentMatches();
-        },
-        e => {
-          console.log("Error: " + e.error);
-        }
+    if (this.validateAddMatchForm()) {
+      console.log(
+        "Date: " +
+          this.temporarMatch.date +
+          "Round: " +
+          this.temporarMatch.round +
+          this.firstPersonName +
+          this.secondPersonName
       );
+
+      this.apiService
+        .addMatch(
+          this.temporarMatch,
+          this.id,
+          this.firstPersonName,
+          this.secondPersonName
+        )
+        .subscribe(
+          (match: Match) => {
+            this.matchResposne = new Match().deserialize(match);
+            
+            //this.openSnackBar("ADDMATCH.DATECANTBENULL", "OK");
+
+            console.log(this.matchResposne);
+
+            this.getTournamentMatches();
+          },
+          e => {
+            console.log("Error: " + e.error);
+          }
+        );
+    }
   }
 
   addCommentButton() {
@@ -177,5 +183,50 @@ export class AddMatchComponent implements OnInit {
     const link = ["/user", userName];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
+  }
+
+
+  validateAddMatchForm(): boolean {
+    if (this.firstPersonName == undefined || this.firstPersonName == "") {
+      this.openSnackBar("ADDMATCH.FPCANTBENULL", "OK");
+
+      return false;
+    } else if (
+      this.secondPersonName == undefined ||
+      this.secondPersonName == ""
+    ) {
+      this.openSnackBar("ADDMATCH.SPCANTBENULL", "OK");
+
+      return false;
+    } else if (this.temporarMatch.round == undefined) {
+      this.openSnackBar("ADDMATCH.ROUNDCANTBEEMPTY", "OK");
+
+      return false;
+    } else if (!this.isNumber(this.temporarMatch.round)) {
+      this.openSnackBar("ADDMATCH.ROUNDMUSTBENUMERIC", "OK");
+
+      return false;
+    } else if (
+      this.temporarMatch.date == undefined ||
+      this.temporarMatch.date == ""
+    ) {
+
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  openSnackBar(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
+    });
+  }
+
+  isNumber(value: string | number): boolean {
+    return value != null && value !== "" && !isNaN(Number(value.toString()));
   }
 }

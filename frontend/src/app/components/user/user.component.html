@@ -26,7 +26,7 @@
   <div class="tournaments">
     <br />
     <b> {{ "USER.TOURNAMENTS" | translate }}</b>
-    <li *ngFor="let tournament of tournaments; index as i">
+    <li *ngFor="let tournament of tournaments; index as i" class="tournament">
       {{ "USER.TOURNAMENT.NAME" | translate }}
       <b>{{ tournament.tournamentName }}</b>
       {{ "USER.TOURNAMENT.DATE" | translate }}

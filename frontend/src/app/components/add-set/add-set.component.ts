@@ -3,8 +3,10 @@ import { MatchSet } from "src/app/models/MatchSet";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { MatTableDataSource } from "@angular/material/table";
-import { Tournament } from 'src/app/models/Tournament';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { Tournament } from "src/app/models/Tournament";
+import { TokenStorageService } from "src/app/service/token-storage.service";
+import { TranslateService } from "@ngx-translate/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-add-set",
@@ -27,6 +29,8 @@ export class AddSetComponent implements OnInit {
     private apiService: AppServiceService,
     private router: Router,
     private tokenStorageService: TokenStorageService,
+    private translate: TranslateService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -39,7 +43,7 @@ export class AddSetComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       if (params["id"] !== undefined) {
         this.id = +params["id"];
-        this.tournamentId = + params["tournamentId"]
+        this.tournamentId = +params["tournamentId"];
         console.log("ID: " + this.id);
         console.log("TournamentId: " + this.tournamentId);
       } else {
@@ -51,23 +55,25 @@ export class AddSetComponent implements OnInit {
   }
 
   addSet() {
-    if (this.matchSets.length >= 4) {
-      this.active = false;
-    }
+    if (this.validateSetForm()) {
+      if (this.matchSets.length >= 4) {
+        this.active = false;
+      }
 
-    if (this.matchSets.length < 5) {
-      this.apiService
-        .addMatchSet(this.matchSet, this.id, this.username)
-        .subscribe(
-          () => {
-            this.getSetsWithMatchId();
-          },
-          e => {
-            console.log("Error: " + e.error);
-          }
-        );
-      console.log("Length: " + this.matchSets.length);
-      console.log(JSON.stringify(this.matchSet));
+      if (this.matchSets.length < 5) {
+        this.apiService
+          .addMatchSet(this.matchSet, this.id, this.username)
+          .subscribe(
+            () => {
+              this.getSetsWithMatchId();
+            },
+            e => {
+              console.log("Error: " + e.error);
+            }
+          );
+        console.log("Length: " + this.matchSets.length);
+        console.log(JSON.stringify(this.matchSet));
+      }
     }
   }
 
@@ -94,14 +100,14 @@ export class AddSetComponent implements OnInit {
     );
   }
 
-
   getTournamentMatches() {
     this.apiService.getTournament(this.tournamentId).subscribe(
       data => {
         console.log(JSON.stringify(data));
         this.tournament = data;
-        console.log("Tournament one: " + JSON.stringify(this.tournament.participants));
-  
+        console.log(
+          "Tournament one: " + JSON.stringify(this.tournament.participants)
+        );
       },
       e => {
         console.log("Error: " + e.error);
@@ -126,4 +132,44 @@ export class AddSetComponent implements OnInit {
       console.log("Username: " + this.tokenStorageService.getUsername());
     }
   }
+
+  validateSetForm(): boolean {
+    if (this.matchSet.firstPerson == undefined) {
+      this.openSnackBar("ADDSET.FPCANTBENULL", "OK");
+
+      return false;
+    } else if (this.matchSet.secondPerson == undefined) {
+      this.openSnackBar("ADDSET.SPCANTBENULL", "OK");
+
+      return false;
+    } else if (!this.isNumber(this.matchSet.firstPerson)) {
+      this.openSnackBar("ADDSET.FPCANTBEASTRING", "OK");
+
+      return false;
+    } else if (!this.isNumber(this.matchSet.secondPerson)) {
+      this.openSnackBar("ADDSET.SPCANTBEASTRING", "OK");
+
+      return false;
+    } else if (this.username == undefined || this.username == "") {
+      this.openSnackBar("ADDSET.WINNERCANTBENULL", "OK");
+
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  openSnackBar(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
+    });
+  }
+
+  isNumber(value: string | number): boolean {
+    return value != null && value !== "" && !isNaN(Number(value.toString()));
+  }
 }
+
