@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges, Input } from "@angular/core";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Tournament } from "src/app/models/Tournament";
 import { MatTableDataSource } from "@angular/material/table";
@@ -16,13 +16,17 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ["./add-match.component.css"]
 })
 export class AddMatchComponent implements OnInit {
+
   private tournament: Tournament;
+  private tournamentCopy: Tournament;
   private matches: Match[];
   private dataSource: any;
   private temporarMatch: Match;
   private tournamentId: number;
-  private firstPersonName: string;
-  private secondPersonName: string;
+  private firstPersonName: String;
+  private secondPersonName: String;
+  private firstPersonNameCopy: String;
+  private secondPersonNameCopy: String;
   private matchResposne: Match;
   private id;
   private commentContent;
@@ -36,7 +40,7 @@ export class AddMatchComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private translate: TranslateService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.routeIfNotLoggedIn();
@@ -56,6 +60,35 @@ export class AddMatchComponent implements OnInit {
     this.getTournamentMatches();
   }
 
+
+  removeSecondPerson(x: any) {
+    console.log("Changes in: " + this.secondPersonName)
+   
+    for (var i = this.tournament.participants.length - 1; i >= 0; --i) {
+      if (this.tournament.participants[i].userName == this.secondPersonName) {
+        this.tournament.participants.splice(i, 1);
+      }
+    }
+
+    console.log("Changes in: " + JSON.stringify(this.tournament.participants));
+    console.log("Copy: " + this.secondPersonNameCopy);
+
+
+  }
+  removeFirstPerson(x: any) {
+    console.log("Changes in: " + this.firstPersonName)
+  
+    for (var i = this.tournamentCopy.participants.length - 1; i >= 0; --i) {
+      if (this.tournamentCopy.participants[i].userName == this.firstPersonName) {
+        this.tournamentCopy.participants.splice(i, 1);
+      }
+    }
+
+    console.log("Changes in copy: " + JSON.stringify(this.tournamentCopy.participants));
+    console.log("Copy: " + this.firstPersonNameCopy);
+
+  }
+
   routeIfNotLoggedIn() {
     if (!this.tokenStorageService.getToken()) {
       this.isLogged = false;
@@ -73,6 +106,7 @@ export class AddMatchComponent implements OnInit {
       data => {
         console.log(JSON.stringify(data));
         this.tournament = data;
+        this.tournamentCopy = JSON.parse(JSON.stringify(this.tournament));
         this.tournament.comments.sort(this.compare);
 
         console.log("Tournament one: ", this.tournament);
@@ -99,7 +133,7 @@ export class AddMatchComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog() {}
+  openDialog() { }
   addMatch(
     match: Match,
     tournamentId: number,
@@ -109,11 +143,11 @@ export class AddMatchComponent implements OnInit {
     if (this.validateAddMatchForm()) {
       console.log(
         "Date: " +
-          this.temporarMatch.date +
-          "Round: " +
-          this.temporarMatch.round +
-          this.firstPersonName +
-          this.secondPersonName
+        this.temporarMatch.date +
+        "Round: " +
+        this.temporarMatch.round +
+        this.firstPersonName +
+        this.secondPersonName
       );
 
       this.apiService

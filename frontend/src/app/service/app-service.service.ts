@@ -253,8 +253,8 @@ export class AppServiceService {
   addMatch(
     match: Match,
     tournamentId: number,
-    firstPersonName: string,
-    secondPersonName: string
+    firstPersonName: String,
+    secondPersonName: String
   ): Observable<Match> {
     let header = {
       headers: new HttpHeaders().set(

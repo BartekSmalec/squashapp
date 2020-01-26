@@ -87,7 +87,7 @@
       <p>
         <mat-form-field appearance="standard">
           <mat-label>{{ "ADDMATCH.FIRSTPERSON" | translate }}</mat-label>
-          <mat-select [(ngModel)]="this.firstPersonName">
+          <mat-select [(ngModel)]="this.firstPersonName" (ngModelChange)="removeFirstPerson($event)">
             <mat-option
               *ngFor="let user of this.tournament.participants"
               [value]="user.userName"
@@ -100,9 +100,9 @@
       <p>
         <mat-form-field appearance="standard">
           <mat-label> {{ "ADDMATCH.SECONDPERSON" | translate }} </mat-label>
-          <mat-select [(ngModel)]="this.secondPersonName">
+          <mat-select [(ngModel)]="this.secondPersonName" (ngModelChange)="removeSecondPerson($event)">
             <mat-option
-              *ngFor="let user of this.tournament.participants"
+              *ngFor="let user of this.tournamentCopy.participants"
               [value]="user.userName"
             >
               {{ user.userName }}
