@@ -12,7 +12,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -268,6 +270,94 @@ public class TournamentResource {
         }
     }
 
+    @GetMapping("/getWinner/{id}")
+    public ResponseEntity<User> getWinner(@PathVariable("id") String id) {
+
+        Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(id));
+
+        List<MatchSet> matchSets = (List<MatchSet>) matchSetRepository.findAll();
+
+        List<Match> match = (List<Match>) matchRepository.findAll();
+
+
+        List<MatchSet> matchSetList = matchSets.stream()
+                .filter(m -> m.getMatch().getTournament().getTournamentId().equals(foundTournament.get().getTournamentId())).collect(Collectors.toList());
+
+
+        if (foundTournament.get().isTypeOfCountingResult()) {
+
+            Optional<Integer> lastRound = match.stream().map(m -> m.getRound()).max(Integer::compareTo);
+
+            logger.info("Max round: " + lastRound.get());
+
+
+            List<MatchSet> matchSet = matchSets.stream()
+                    .filter(m -> m.getMatch().getTournament().getTournamentId().equals(foundTournament.get().getTournamentId())).collect(Collectors.toList());
+
+
+            if (matchSet.isEmpty()) {
+                logger.info("IS EMPTY");
+            }
+            Map<User, Integer> winnerToCount =
+                    matchSet.stream().collect(
+                            Collectors.groupingBy(p -> p.getWinner(),
+                                    Collectors.summingInt(a -> 1)));
+
+            if (winnerToCount.isEmpty()) {
+                logger.info("winnerToCount IS EMPTY");
+            }
+            winnerToCount.forEach((key, value) -> logger.info("MAP: " + key.getUserName() + ":" + value));
+
+
+            List<Match> matches = match.stream().filter(m -> m.getRound() == lastRound.get()).collect(Collectors.toList());
+
+            for (Match m : matches) {
+                logger.info("M: " + m.getRound());
+
+                Map<User, Integer> w =
+                        m.getMatchSet().stream().collect(
+                                Collectors.groupingBy(p -> p.getWinner(),
+                                        Collectors.summingInt(a -> 1)));
+                if (w.isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                } else {
+                    w.forEach((key, value) -> logger.info("WINNER IN MATCH: " + key.getUserName() + ":" + value));
+
+                    Map.Entry<User, Integer> winner = w.entrySet().stream().max(Comparator.comparingInt(e -> e.getValue())).get();
+
+                    logger.info("Winner:  " + winner.getKey().getUserName());
+
+                    return ResponseEntity.ok(winner.getKey());
+                }
+
+
+            }
+
+
+        } else {
+
+
+            Map<User, Integer> winnerToCount =
+                    matchSetList.stream().collect(
+                            Collectors.groupingBy(p -> p.getWinner(),
+                                    Collectors.summingInt(a -> 1)));
+
+            winnerToCount.forEach((key, value) -> logger.info("MAP: " + key.getUserName() + ":" + value));
+
+            if (winnerToCount.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                Map.Entry<User, Integer> winner = winnerToCount.entrySet().stream().max(Comparator.comparingInt(e -> e.getValue())).get();
+
+                logger.info("Winner:  " + winner.getKey().getUserName());
+
+                return ResponseEntity.ok(winner.getKey());
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<DeletedResponse> delete(@PathVariable("id") String id) {
         Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(id));
@@ -278,12 +368,10 @@ public class TournamentResource {
 
         List<Match> filteredMatches = matches.stream().filter(m -> m.getTournament().getTournamentId().equals(foundTournament.get().getTournamentId())).collect(Collectors.toList());
 
-        for(Match match: filteredMatches)
-        {
+        for (Match match : filteredMatches) {
             logger.info("Match: " + match.getMatchId());
-            List<MatchSet> filteredMatchSet = matchSets.stream().filter(s-> s.getMatch().getMatchId().equals(match.getMatchId())).collect(Collectors.toList());
-            for(MatchSet matchSet: filteredMatchSet)
-            {
+            List<MatchSet> filteredMatchSet = matchSets.stream().filter(s -> s.getMatch().getMatchId().equals(match.getMatchId())).collect(Collectors.toList());
+            for (MatchSet matchSet : filteredMatchSet) {
                 logger.info("MatchSet: " + matchSet.getId() + " " + matchSet.getMatch().getMatchId());
             }
 

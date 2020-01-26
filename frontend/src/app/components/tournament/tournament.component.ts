@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AppServiceService } from "src/app/service/app-service.service";
 import { Tournament } from "src/app/models/Tournament";
 import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: "app-tournament",
@@ -13,6 +14,7 @@ export class TournamentComponent implements OnInit {
   private id: number;
   private tournament: Tournament;
   private isLogged: boolean;
+  private winner: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class TournamentComponent implements OnInit {
     });
 
     this.getTournament();
+    this.getWinner();
   }
 
   routeIfNotLoggedIn() {
@@ -58,6 +61,20 @@ export class TournamentComponent implements OnInit {
       },
       e => {
         console.log("Error: " + e.error);
+      }
+    );
+  }
+  getWinner()
+  {
+    this.apiService.getWinner(this.id).subscribe(
+      data => {
+        this.winner = data;
+
+      },
+      e=>
+      {
+        console.log("Error: " + e.error);
+
       }
     );
   }

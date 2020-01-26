@@ -41,7 +41,10 @@
     "COUNTRY": "Kraj: ",
     "SPORTFACILITY" : "Obiekt sportowy: ",
     "CATEGORY" :"Kategoria: ",
-    "PRIZE": "Pula nagród: "
+    "PRIZE": "Pula nagród: ",
+    "NOTUR": "Nie zapisałeś się do żadnego turnieju",
+    "LEADER": "Lider: ",
+    "PARTICIPANT": "Uczestnicy: "
   },
   "LISTOFTOURNAMENTS":{
     "NAME": "Nazwa",

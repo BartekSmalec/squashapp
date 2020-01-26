@@ -42,7 +42,10 @@
     "COUNTRY": "Country: ",
     "SPORTFACILITY" : "Sport facility: ",
     "CATEGORY" :"Category: ",
-    "PRIZE": "Prize: "
+    "PRIZE": "Prize: ",
+    "NOTUR": "No tournaments",
+    "LEADER": "Leader: ",
+    "PARTICIPANT": "Participant: "
   },
   "LISTOFTOURNAMENTS":{
     "NAME": "Name",

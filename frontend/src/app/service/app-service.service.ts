@@ -39,19 +39,20 @@ export class AppServiceService {
   private GET_TOURNAMENTS_FOR_USER_URL = `${this.BASE_URL}tournament/getTournamentForUser`;
   private GET_USERS_URL = `${this.BASE_URL}users/getUsers`;
   private DELETE_USERS_URL = `${this.BASE_URL}users/delete`;
+  private GET_TOURNAMENT_WINNER__URL = `${this.BASE_URL}tournament/getWinner`;
 
 
-  
 
 
-  
+
+
 
 
 
   constructor(
     private http: HttpClient,
     private tokenStorageService: TokenStorageService
-  ) {}
+  ) { }
 
   getCurrentUser(): Observable<String> {
     return this.http.get(this.CURRENT_USER_URL, { responseType: "text" });
@@ -65,6 +66,16 @@ export class AppServiceService {
       )
     };
     return this.http.get<User[]>(this.GET_USERS_URL, header);
+  }
+
+  getWinner(id: number): Observable<User> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<User>(this.GET_TOURNAMENT_WINNER__URL + "/" + id, header);
   }
 
   addComment(comment: Comment, id: number): Observable<MatchSet> {
@@ -254,12 +265,12 @@ export class AppServiceService {
 
     return this.http.post<Match>(
       this.GET_MATCHES_URL +
-        "?tournamentId=" +
-        tournamentId +
-        "&firstPersonName=" +
-        firstPersonName +
-        "&secondPersonName=" +
-        secondPersonName,
+      "?tournamentId=" +
+      tournamentId +
+      "&firstPersonName=" +
+      firstPersonName +
+      "&secondPersonName=" +
+      secondPersonName,
       match,
       header
     );

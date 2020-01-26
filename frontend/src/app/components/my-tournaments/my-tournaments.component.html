@@ -1,15 +1,14 @@
 <div class="container">
-    <li *ngFor="let tournament of tournaments; index as i" class="tournament">
-      {{ "TOURNAMENT.TOURNAMENTNAME" | translate }}
-        <b>{{tournament.tournamentName}}</b>
-        {{ "TOURNAMENT.DATE" | translate }}
-        <b>{{tournament.date}}</b>
-        <button
-        (click)="goToTournament(tournament.tournamentId)"
-        mat-raised-button
-        color="primary"
-      >
+  <li *ngFor="let tournament of tournaments; index as i" class="tournament">
+    {{ "TOURNAMENT.TOURNAMENTNAME" | translate }}
+    <b>{{tournament.tournamentName}}</b>
+    {{ "TOURNAMENT.DATE" | translate }}
+    <b>{{tournament.date}}</b>
+    <button (click)="goToTournament(tournament.tournamentId)" mat-raised-button color="primary">
       {{ "LISTOFTOURNAMENTS.VIEW" | translate }}
-      </button>
-    </li>
+    </button>
+  </li>
+  <h3 *ngIf="!this.tournaments">
+    {{"TOURNAMENT.NOTUR" | translate}}
+  </h3>
 </div>

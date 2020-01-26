@@ -1,4 +1,15 @@
 <div class="main">
+ <div *ngIf="this.winner" class="leader">
+  <h3>{{ "TOURNAMENT.LEADER" | translate }} </h3>
+  <li class="user">
+    {{winner.userName}}
+
+    <button (click)="goToUserProfile(winner.userName)" mat-raised-button color="primary">
+      {{ "LISTOFTOURNAMENTS.VIEW" | translate }}
+    </button>
+  </li>
+ </div>
+
   <p><b>{{ "TOURNAMENT.TOURNAMENTNAME" | translate }} </b> {{ this.tournament.tournamentName }}</p>
   <p><b>{{ "TOURNAMENT.DATE" | translate }} </b>{{ this.tournament.date }}</p>
   <p><b>{{ "TOURNAMENT.CITY" | translate }} </b> {{ this.tournament.city }}</p>
@@ -8,8 +19,8 @@
   <p><b>{{ "TOURNAMENT.PRIZE" | translate }} </b> {{ this.tournament.prize }}</p>
 
   <div class="participants">
-    <h3>Participants: </h3>
-    <li *ngFor="let user of this.tournament.participants"  class="user">
+    <h3>{{ "TOURNAMENT.PARTICIPANT" | translate }}  </h3>
+    <li *ngFor="let user of this.tournament.participants" class="user">
       {{user.userName}}
 
       <button (click)="goToUserProfile(user.userName)" mat-raised-button color="primary">
