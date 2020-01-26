@@ -24,6 +24,7 @@ export class AppServiceService {
 
   private CURRENT_USER_URL = `${this.BASE_URL}currentUser`;
   private REGISTER_URL = `${this.BASE_URL}users/register`;
+  private UPDATE_URL = `${this.BASE_URL}users/update`;
   private ADD_TOURNAMENT_URL = `${this.BASE_URL}tournament/add`;
   private GET_TOURNAMENTS_URL = `${this.BASE_URL}tournament/getTournament`;
   private GET_MATCHES_URL = `${this.BASE_URL}match/add`;
@@ -36,7 +37,9 @@ export class AppServiceService {
   private DELETE_TOURNAMENTS_URL = `${this.BASE_URL}tournament/delete`;
   private REMOVE_PARTICIPANT_URL = `${this.BASE_URL}tournament/removeParticipant`;
   private GET_TOURNAMENTS_FOR_USER_URL = `${this.BASE_URL}tournament/getTournamentForUser`;
-  private GET_USERS_URL = `${this.BASE_URL}tournament/getUsers`;
+  private GET_USERS_URL = `${this.BASE_URL}users/getUsers`;
+  private DELETE_USERS_URL = `${this.BASE_URL}users/delete`;
+
 
   
 
@@ -113,6 +116,19 @@ export class AppServiceService {
     };
     return this.http.delete<String>(
       this.DELETE_TOURNAMENTS_URL + "/" + id,
+      header
+    );
+  }
+
+  deleteUser(userName: string): Observable<String> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.delete<String>(
+      this.DELETE_USERS_URL + "/" + userName,
       header
     );
   }
@@ -266,6 +282,12 @@ export class AppServiceService {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
 
     return this.http.post<User>(this.REGISTER_URL, user, { headers: headers });
+  }
+
+  updateUser(user: User): Observable<User> {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
+
+    return this.http.post<User>(this.UPDATE_URL, user, { headers: headers });
   }
 
   login(credentials: LoginForm): Observable<JwtResponse> {

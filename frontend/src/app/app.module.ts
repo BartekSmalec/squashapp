@@ -69,6 +69,9 @@ import { MyTournamentsComponent } from './components/my-tournaments/my-tournamen
 import { EditTournamentComponent } from './components/edit-tournament/edit-tournament.component';
 import { UserComponent } from './components/user/user.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
+import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/editUser.component';
+import { from } from 'rxjs';
 
 
 // AoT requires an exported function for factories
@@ -102,7 +105,9 @@ const appRoutes: Routes = [
     MyTournamentsComponent,
     EditTournamentComponent,
     UserComponent,
-    TournamentComponent
+    TournamentComponent,
+    UsersComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,8 @@ import { MyTournamentsComponent } from './components/my-tournaments/my-tournamen
 import { EditTournamentComponent } from './components/edit-tournament/edit-tournament.component';
 import { UserComponent } from './components/user/user.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
+import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/editUser.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,15 @@ const routes: Routes = [
   {
     path: "tournament/:id",
     component: TournamentComponent
+  }
+  ,
+  {
+    path: "users",
+    component: UsersComponent
+  },
+  {
+    path: "editUser/:userName",
+    component: EditUserComponent
   }
 ];
 

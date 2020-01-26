@@ -5,7 +5,9 @@
     "LOGOUT": "Logout",
     "ADDTOURNAMENT": "Add tournament",
     "LISTOFTOURNAMENT": "List of tournaments",
-    "MYTOURNAMENTS": "My tournaments"
+    "MYTOURNAMENTS": "My tournaments",
+    "USERS": "Users"
+
   },
   "LOGIN":{
     "LOGIN": "Login",
@@ -108,7 +110,13 @@
     "PASSNOTEQUAL" : "Passwords not equal",
     "CORRECT" : "Correct register",
     "INCORECT" : "Incorrect register",
-    "USEREXIST" : "User already exist"
+    "USEREXIST" : "User already exist",
+    "ROLES" : "Role",
+    "EDIT" :"Edit",
+    "ECORRECT" : "Edited",
+    "EINCORECT" : "Can't edit"
+
+
   },
   "ADDTOURNAMENT":{
     "TOURNAMENTNAME" : "Tournament name",

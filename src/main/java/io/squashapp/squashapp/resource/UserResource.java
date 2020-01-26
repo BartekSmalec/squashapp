@@ -1,8 +1,7 @@
 package io.squashapp.squashapp.resource;
 
-import io.squashapp.squashapp.models.Tournament;
-import io.squashapp.squashapp.models.User;
-import io.squashapp.squashapp.repository.UserRepository;
+import io.squashapp.squashapp.models.*;
+import io.squashapp.squashapp.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4500", maxAge = 3600)
 @RestController
@@ -26,6 +27,9 @@ public class UserResource {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    TournamentRepository tournamentRepository;
 
     Logger logger = LoggerFactory.getLogger(UserResource.class);
 
@@ -90,6 +94,9 @@ public class UserResource {
             return ResponseEntity.notFound().build();
         } else {
 
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActive(true);
+
             User createdUser = userRepository.save(user);
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -126,6 +133,65 @@ public class UserResource {
     public User getCurrentUser(Principal principal) {
         Optional<User> user = userRepository.findByUserName(principal.getName());
         return user.get();
+    }
+
+    @Autowired
+    MatchRepository matchRepository;
+    @Autowired
+    MatchSetRepository matchSetRepository;
+    @Autowired
+    CommentRepository commentRepository;
+
+    @DeleteMapping("/delete/{userName}")
+    public ResponseEntity<DeletedResponse> delete(@PathVariable("userName") String userName) {
+        Optional<User> user = userRepository.findByUserName(userName);
+
+        List<Match> matches = (List<Match>) matchRepository.findAll();
+
+        List<Match> filtered = (List<Match>) matches.stream().filter(m -> m.getFirstPerson().getUserName().equals(userName) || m.getSecondPerson().getUserName().equals(userName)).collect(Collectors.toList());
+
+        List<MatchSet> matchSets = (List<MatchSet>) matchSetRepository.findAll();
+
+
+        for (Match match : matches) {
+            logger.info("Mathces: " + match.getSecondPerson().getUserName() + match.getSecondPerson().getUserName());
+        }
+
+        if (filtered.isEmpty()) {
+            logger.info("Is empty");
+        }
+
+        for (Match match : filtered) {
+            logger.info("Match: " + match.getFirstPerson().getUserName() + match.getSecondPerson().getUserName());
+        }
+
+
+        for (Match match : filtered) {
+            logger.info("Match: " + match.getMatchId());
+            List<MatchSet> filteredMatchSet = matchSets.stream().filter(s -> s.getMatch().getMatchId().equals(match.getMatchId())).collect(Collectors.toList());
+            for (MatchSet matchSet : filteredMatchSet) {
+                logger.info("MatchSet: " + matchSet.getId() + " " + matchSet.getMatch().getMatchId());
+            }
+
+            matchSetRepository.deleteAll(filteredMatchSet);
+        }
+
+        matchRepository.deleteAll(filtered);
+
+        List<Comment> comments = (List<Comment>) commentRepository.findAll();
+
+        List<Comment> filteredComments = comments.stream().filter(c-> c.getAuthor().getUserName().equals(userName)).collect(Collectors.toList());
+
+        commentRepository.deleteAll(filteredComments);
+
+        logger.info("Delete: " + user.get().getUserName());
+
+        if (!user.isPresent()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            userRepository.delete(user.get());
+            return ResponseEntity.ok(new DeletedResponse("Deleted", 200));
+        }
     }
 
 

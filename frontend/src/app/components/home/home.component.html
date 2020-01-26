@@ -22,7 +22,6 @@
   </div>
 
   <div *ngIf="this.isLogged">
-    <!-- Zalogowany jako {{ this.tokenStorage.username }} -->
     <button mat-raised-button color="primary" (click)="logout()">
       {{ "HOME.LOGOUT" | translate }}
     </button>
@@ -60,6 +59,12 @@
             <mat-list-item routerLink="/myTournaments">{{
               "HOME.MYTOURNAMENTS" | translate
             }}</mat-list-item>
+          </div>
+
+          <div *ngIf="this.isAdmin">
+            <mat-list-item routerLink="/users"
+              >{{ "HOME.USERS" | translate }}
+            </mat-list-item>
           </div>
         </mat-nav-list>
       </div>

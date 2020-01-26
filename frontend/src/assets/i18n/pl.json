@@ -5,7 +5,8 @@
     "LOGOUT": "Wyloguj",
     "ADDTOURNAMENT": "Dodaj turniej",
     "LISTOFTOURNAMENT": "Lista turniejów",
-    "MYTOURNAMENTS": "Moje turnieje"
+    "MYTOURNAMENTS": "Moje turnieje",
+    "USERS": "Użytkownicy"
   },
   "LOGIN":{
     "LOGIN": "Zaloguj",
@@ -105,7 +106,11 @@
     "PASSNOTEQUAL" : "Hasła różnią się",
     "CORRECT" : "Poprawna rejestracja",
     "INCORECT" : "Niepoprawna rejestracja",
-    "USEREXIST" : "Taki użytkownik już istnieje"
+    "USEREXIST" : "Taki użytkownik już istnieje",
+    "ROLES" : "Rola",
+    "EDIT" :"Edytuj",
+    "ECORRECT" : "Edytowano",
+    "EINCORECT" : "Nie można edytować"
 
   },
   "ADDTOURNAMENT":{

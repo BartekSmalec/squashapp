@@ -1,12 +1,7 @@
 package io.squashapp.squashapp.resource;
 
-import io.squashapp.squashapp.models.Comment;
-import io.squashapp.squashapp.models.DeletedResponse;
-import io.squashapp.squashapp.models.Tournament;
-import io.squashapp.squashapp.models.User;
-import io.squashapp.squashapp.repository.CommentRepository;
-import io.squashapp.squashapp.repository.TournamentRepository;
-import io.squashapp.squashapp.repository.UserRepository;
+import io.squashapp.squashapp.models.*;
+import io.squashapp.squashapp.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +29,10 @@ public class TournamentResource {
     UserRepository userRepository;
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    MatchRepository matchRepository;
+    @Autowired
+    MatchSetRepository matchSetRepository;
 
     Logger logger = LoggerFactory.getLogger(TournamentResource.class);
 
@@ -272,6 +271,26 @@ public class TournamentResource {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<DeletedResponse> delete(@PathVariable("id") String id) {
         Optional<Tournament> foundTournament = tournamentRepository.findById(Long.valueOf(id));
+
+        List<Match> matches = (List<Match>) matchRepository.findAll();
+
+        List<MatchSet> matchSets = (List<MatchSet>) matchSetRepository.findAll();
+
+        List<Match> filteredMatches = matches.stream().filter(m -> m.getTournament().getTournamentId().equals(foundTournament.get().getTournamentId())).collect(Collectors.toList());
+
+        for(Match match: filteredMatches)
+        {
+            logger.info("Match: " + match.getMatchId());
+            List<MatchSet> filteredMatchSet = matchSets.stream().filter(s-> s.getMatch().getMatchId().equals(match.getMatchId())).collect(Collectors.toList());
+            for(MatchSet matchSet: filteredMatchSet)
+            {
+                logger.info("MatchSet: " + matchSet.getId() + " " + matchSet.getMatch().getMatchId());
+            }
+
+            matchSetRepository.deleteAll(filteredMatchSet);
+        }
+
+        matchRepository.deleteAll(filteredMatches);
 
         logger.info("Delete: " + foundTournament.get().getTournamentName());
 

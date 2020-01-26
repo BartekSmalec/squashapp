@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -86,4 +87,34 @@ public class Match {
         this.matchSet = matchSet;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return getRound() == match.getRound() &&
+                Objects.equals(getMatchId(), match.getMatchId()) &&
+                Objects.equals(getFirstPerson(), match.getFirstPerson()) &&
+                Objects.equals(getSecondPerson(), match.getSecondPerson()) &&
+                Objects.equals(getMatchSet(), match.getMatchSet()) &&
+                Objects.equals(getTournament(), match.getTournament()) &&
+                Objects.equals(getDate(), match.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMatchId(), getFirstPerson(), getSecondPerson(), getMatchSet(), getTournament(), getDate(), getRound());
+    }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "matchId=" + matchId +
+                ", firstPerson=" + firstPerson +
+                ", secondPerson=" + secondPerson +
+                ", tournament=" + tournament +
+                ", date=" + date +
+                ", round=" + round +
+                '}';
+    }
 }

@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class HomeComponent implements OnInit {
   isLogged: boolean;
   tournament: Tournament;
+  isAdmin: boolean;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -40,8 +41,19 @@ export class HomeComponent implements OnInit {
       console.log("Is logger: " + this.isLogged);
       console.log("Username: " + this.tokenStorage.getUsername());
       
-     
     }
+    if (this.tokenStorage.getAuthorities().includes("ROLE_ADMIN")) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
+    console.log(
+      "Is admin? " +
+      this.tokenStorage.getAuthorities() +
+      " " +
+      this.isAdmin
+    );
   }
 
   logout() {
