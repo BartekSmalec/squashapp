@@ -6,4 +6,16 @@
   <p><b>{{ "TOURNAMENT.SPORTFACILITY" | translate }} </b> {{ this.tournament.sportFacility }}</p>
   <p><b>{{ "TOURNAMENT.CATEGORY" | translate }} </b> {{ this.tournament.category }}</p>
   <p><b>{{ "TOURNAMENT.PRIZE" | translate }} </b> {{ this.tournament.prize }}</p>
+
+  <div class="participants">
+    <h3>Participants: </h3>
+    <li *ngFor="let user of this.tournament.participants"  class="user">
+      {{user.userName}}
+
+      <button (click)="goToUserProfile(user.userName)" mat-raised-button color="primary">
+        {{ "LISTOFTOURNAMENTS.VIEW" | translate }}
+      </button>
+    </li>
+
+  </div>
 </div>

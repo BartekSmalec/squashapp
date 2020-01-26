@@ -1,7 +1,7 @@
 {
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
-    "SELECT": "Change language",
+    "SELECT": "Language",
     "LOGOUT": "Logout",
     "ADDTOURNAMENT": "Add tournament",
     "LISTOFTOURNAMENT": "List of tournaments",

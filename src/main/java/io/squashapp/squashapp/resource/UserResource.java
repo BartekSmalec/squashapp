@@ -82,7 +82,7 @@ public class UserResource {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<User> update(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<User> update(@RequestBody User user) {
 
         Optional<User> foundUser = userRepository.findById(Long.valueOf(user.getId()));
 

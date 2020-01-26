@@ -1,4 +1,4 @@
-package io.squashapp.squashapp.jwt;
+package io.squashapp.squashapp.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.squashapp.squashapp.UserDetailsServiceImpl;
@@ -27,7 +27,6 @@ public class UserPrinciple implements UserDetails {
     @JsonIgnore
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-    //private Collection<SimpleGrantedAuthority> authorities;
 
     public UserPrinciple(long id, String name, String surname, String userName, String password,
                          Collection<SimpleGrantedAuthority> authorities) {
@@ -37,8 +36,6 @@ public class UserPrinciple implements UserDetails {
         this.userName = userName;
         this.password = password;
         this.authorities = authorities;
-        //this.authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-
 
         logger.info("AUTH CONSTRUCTOR " + this.getAuthorities());
 
@@ -48,7 +45,6 @@ public class UserPrinciple implements UserDetails {
         List<SimpleGrantedAuthority> authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
 
         Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
         logger.info("AUTH: " + authorities);
@@ -63,7 +59,6 @@ public class UserPrinciple implements UserDetails {
         );
 
         logger.info("userPrinciple in buid AUTH: " + userPrinciple.getAuthorities());
-
 
         return new UserPrinciple(
                 user.getId(),

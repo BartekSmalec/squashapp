@@ -1,4 +1,4 @@
-package io.squashapp.squashapp.jwt;
+package io.squashapp.squashapp.security;
 
 import io.squashapp.squashapp.UserDetailsServiceImpl;
 import org.slf4j.Logger;

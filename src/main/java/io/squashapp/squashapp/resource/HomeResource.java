@@ -1,6 +1,6 @@
 package io.squashapp.squashapp.resource;
 
-import io.squashapp.squashapp.jwt.JwtProvider;
+import io.squashapp.squashapp.security.JwtProvider;
 import io.squashapp.squashapp.models.JwtResponse;
 import io.squashapp.squashapp.models.LoginForm;
 import org.slf4j.Logger;

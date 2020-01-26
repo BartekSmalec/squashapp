@@ -1,6 +1,6 @@
 package io.squashapp.squashapp;
 
-import io.squashapp.squashapp.jwt.UserPrinciple;
+import io.squashapp.squashapp.security.UserPrinciple;
 import io.squashapp.squashapp.models.User;
 import io.squashapp.squashapp.repository.UserRepository;
 import org.slf4j.Logger;

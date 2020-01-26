@@ -1,7 +1,7 @@
 {
   "HOME": {
     "TITLE": "Bonjour Angular avec ngx-translate !",
-    "SELECT": "Zmień język",
+    "SELECT": "Język",
     "LOGOUT": "Wyloguj",
     "ADDTOURNAMENT": "Dodaj turniej",
     "LISTOFTOURNAMENT": "Lista turniejów",

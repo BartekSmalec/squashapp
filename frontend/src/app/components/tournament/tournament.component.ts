@@ -61,4 +61,10 @@ export class TournamentComponent implements OnInit {
       }
     );
   }
+  
+  goToUserProfile(userName: string) {
+    const link = ["/user", userName];
+    console.log("Link: " + JSON.stringify(link));
+    this.router.navigate(link);
+  }
 }

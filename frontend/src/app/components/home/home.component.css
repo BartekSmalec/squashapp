@@ -19,7 +19,8 @@
 
 .menu{
   height: 100vh;
-  width: 20vh; 
+  width: 35vh; 
+  min-width: 35vh;
 }
 .language{
   margin-right: 5vh;

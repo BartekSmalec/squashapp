@@ -36,6 +36,9 @@ export class AppServiceService {
   private DELETE_TOURNAMENTS_URL = `${this.BASE_URL}tournament/delete`;
   private REMOVE_PARTICIPANT_URL = `${this.BASE_URL}tournament/removeParticipant`;
   private GET_TOURNAMENTS_FOR_USER_URL = `${this.BASE_URL}tournament/getTournamentForUser`;
+  private GET_USERS_URL = `${this.BASE_URL}tournament/getUsers`;
+
+  
 
 
   
@@ -49,6 +52,16 @@ export class AppServiceService {
 
   getCurrentUser(): Observable<String> {
     return this.http.get(this.CURRENT_USER_URL, { responseType: "text" });
+  }
+
+  getUsers(): Observable<User[]> {
+    let header = {
+      headers: new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${this.tokenStorageService.getToken()}`
+      )
+    };
+    return this.http.get<User[]>(this.GET_USERS_URL, header);
   }
 
   addComment(comment: Comment, id: number): Observable<MatchSet> {
