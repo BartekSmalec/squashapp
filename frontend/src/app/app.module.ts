@@ -71,6 +71,7 @@ import { UserComponent } from './components/user/user.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/editUser.component';
+import { DialogPopupComponent } from './components/dialog-popup/dialog-popup.component';
 import { from } from 'rxjs';
 
 
@@ -107,7 +108,8 @@ const appRoutes: Routes = [
     UserComponent,
     TournamentComponent,
     UsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    DialogPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +173,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
   ],
   providers: [httpInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogPopupComponent],
+
 })
 export class AppModule {  }

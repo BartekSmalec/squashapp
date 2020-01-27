@@ -8,6 +8,8 @@ import { TokenStorageService } from "src/app/service/token-storage.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
+import { DialogPopupComponent } from '../dialog-popup/dialog-popup.component';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 export interface PeriodicElement {
   name: string;
@@ -46,8 +48,9 @@ export class TournamentListComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.routeIfNotLoggedIn();
@@ -60,9 +63,9 @@ export class TournamentListComponent implements OnInit {
 
     console.log(
       "Is admin? " +
-        this.tokenStorageService.getAuthorities() +
-        " " +
-        this.isAdmin
+      this.tokenStorageService.getAuthorities() +
+      " " +
+      this.isAdmin
     );
 
     this.getTournaments();
@@ -133,22 +136,43 @@ export class TournamentListComponent implements OnInit {
   }
 
   deleteTournament(id: number) {
+    this.translate.get("LISTOFTOURNAMENTS").subscribe((res: Array<String>) => {
+      console.log("RES: " + JSON.stringify(res["DELETE"]));
+      this.openDialog(res["DELETE"], res["QUESTION"], id);
+    });
+  }
+
+  deleteTournamentApi(id: number) {
     this.apiService.deleteService(id).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        this.openSnackBar("Deleted", "OK");
+        this.openSnackBarForDelete("LISTOFTOURNAMENTS.CDELETE", "OK")
         this.getTournaments();
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+
+        if (this.tournaments[0] == undefined) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+
       },
       e => {
         console.log("Error: " + e.error);
-        this.openSnackBar("Cant' delete", "OK");
+        this.openSnackBarForDelete("LISTOFTOURNAMENTS.UCDELTE", "OK")
       }
     );
   }
+
+  openSnackBarForDelete(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
+    });
+  }
+
 
   goToMatch(id: number) {
     const link = ["/addMatch", id];
@@ -194,7 +218,6 @@ export class TournamentListComponent implements OnInit {
     });
   }
 
-  // LISTOFTOURNAMENTS.JOINED
 
   openSnackBarForValidation(annoucment: string, action: string) {
     this.translate.get(annoucment).subscribe((res: string) => {
@@ -203,5 +226,24 @@ export class TournamentListComponent implements OnInit {
         duration: 2000
       });
     });
+  }
+
+  openDialog(action: String, message: String, id: number): void {
+    let dialogRef = this.dialog.open(DialogPopupComponent, {
+      width: '60%',
+      data: { action: action, message: message }
+    }).afterClosed()
+      .subscribe(response => {
+        console.log("Response: " + JSON.stringify(response));
+
+        if (response == true) {
+          this.deleteTournamentApi(id);
+        }
+        else {
+          console.log("Can't delete");
+        }
+
+
+      });
   }
 }

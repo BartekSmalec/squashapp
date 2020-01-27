@@ -172,6 +172,11 @@ export class AddMatchComponent implements OnInit {
           }
         );
     }
+
+    this.temporarMatch.date = "";
+    this.temporarMatch.round = undefined;
+    this.firstPersonName = "";
+    this.secondPersonName = "";
   }
 
   addCommentButton() {

@@ -58,7 +58,13 @@
     "JOINED" :"Dołączyłeś",
     "YOUJOINED" : "Już jesteś zapisany",
     "UNJOINED" : "Usunięto",
-    "CANTUNJOIN" : "Nie jesteś zapisany"
+    "CANTUNJOIN" : "Nie jesteś zapisany",
+    "QUESTION": "Czy chcesz usunąć ?",
+    "YES": "Tak",
+    "NO": "Nie",
+    "CDELETE": "Usunięto",
+    "UCDELTE": "Nie można usunięto"
+    
 
   },
   "ADDMATCH":{

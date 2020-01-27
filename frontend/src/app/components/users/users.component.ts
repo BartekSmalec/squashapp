@@ -7,6 +7,10 @@ import { User } from 'src/app/models/User';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogPopupComponent } from '../dialog-popup/dialog-popup.component';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: "app-users",
@@ -20,6 +24,8 @@ export class UsersComponent implements OnInit {
   private users: User[];
   private isAdmin: boolean;
   private dataSource: any;
+  private dialogPopupRef: MatDialogRef<DialogPopupComponent>;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +33,8 @@ export class UsersComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -102,20 +109,40 @@ export class UsersComponent implements OnInit {
     this.goToEdtiUser(userName);
   }
 
+  openSnackBarForDelete(annoucment: string, action: string) {
+    this.translate.get(annoucment).subscribe((res: string) => {
+      console.log("RES: " + res);
+      this._snackBar.open(res, action, {
+        duration: 2000
+      });
+    });
+  }
+
+
   deleteUser(userName: string) {
+    this.translate.get("LISTOFTOURNAMENTS").subscribe((res: Array<String>) => {
+      console.log("RES: " + JSON.stringify(res["DELETE"]));
+      this.openDialog(res["DELETE"], res["QUESTION"], userName);
+    });
+  }
+
+  deleteUserApi(userName: string) {
     this.apiService.deleteUser(userName).subscribe(
       data => {
         console.log("Corrent: " + JSON.stringify(data));
-        this.openSnackBar("Deleted", "OK");
+        this.openSnackBarForDelete("LISTOFTOURNAMENTS.CDELETE", "OK")
         this.getUsers();
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        if (this.users[0] == undefined) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
       },
       e => {
         console.log("Error: " + e.error);
-        this.openSnackBar("Cant' delete", "OK");
+        this.openSnackBarForDelete("LISTOFTOURNAMENTS.UCDELTE", "OK")
+
       }
     );
   }
@@ -137,5 +164,24 @@ export class UsersComponent implements OnInit {
     const link = ["/editUser", userName];
     console.log("Link: " + JSON.stringify(link));
     this.router.navigate(link);
+  }
+
+  openDialog(action: String, message: String, userName: string): void {
+    let dialogRef = this.dialog.open(DialogPopupComponent, {
+      width: '60%',
+      data: { action: action, message: message }
+    }).afterClosed()
+      .subscribe(response => {
+        console.log("Response: " + JSON.stringify(response));
+
+        if (response == true) {
+          this.deleteUserApi(userName);
+        }
+        else {
+
+        }
+
+
+      });
   }
 }

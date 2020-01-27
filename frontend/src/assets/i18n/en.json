@@ -59,7 +59,13 @@
     "JOINED" :"Joined",
     "YOUJOINED" : "You already joined",
     "UNJOINED" : "Removed",
-    "CANTUNJOIN" : "You can't remove"
+    "CANTUNJOIN" : "You can't remove",
+    "QUESTION": "Do you want to remove ?",
+    "YES": "Yes",
+    "NO": "No",
+    "CDELETE": "Correct delete",
+    "UCDELTE": "Can't delete"
+    
 
   },
   "ADDMATCH":{
