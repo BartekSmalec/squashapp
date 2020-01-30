@@ -6,13 +6,18 @@
     </mat-form-field>
   </p>
   <p>
+    <mat-slide-toggle [color]="accent" [(ngModel)]="editPassword">
+      Edit Password
+    </mat-slide-toggle>
+  </p>
+  <p *ngIf="editPassword">
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.PASSWORD" | translate }} </mat-label>
       <input type="password" [(ngModel)]="this.user.password" matInput />
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
-  <p>
+  <p *ngIf="editPassword">
     <mat-form-field appearance="standard">
       <mat-label>{{ "REGISTER.REPEATEDPASSWORD" | translate }} </mat-label>
       <input type="password" [(ngModel)]="this.repeatedPassword" matInput />
@@ -20,13 +25,13 @@
   </p>
 
   <p>
-      <mat-form-field appearance="standard">
-        <mat-label>{{ "REGISTER.ROLES" | translate }} </mat-label>
-        <select matNativeControl required [(ngModel)]="this.user.roles">
-          <option value="ROLE_ADMIN">ADMIN</option>
-          <option value="ROLE_USER">USER</option>
-        </select>
-      </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ "REGISTER.ROLES" | translate }} </mat-label>
+      <select matNativeControl required [(ngModel)]="this.user.roles">
+        <option value="ROLE_ADMIN">ADMIN</option>
+        <option value="ROLE_USER">USER</option>
+      </select>
+    </mat-form-field>
   </p>
 
   <p>

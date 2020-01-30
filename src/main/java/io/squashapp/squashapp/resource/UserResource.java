@@ -93,8 +93,11 @@ public class UserResource {
         if (!foundUser.isPresent()) {
             return ResponseEntity.notFound().build();
         } else {
-
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            if (user.getPassword() != "" || user.getPassword() == null) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            } else {
+                user.setPassword(foundUser.get().getPassword());
+            }
             user.setActive(true);
 
             User createdUser = userRepository.save(user);
@@ -180,7 +183,7 @@ public class UserResource {
 
         List<Comment> comments = (List<Comment>) commentRepository.findAll();
 
-        List<Comment> filteredComments = comments.stream().filter(c-> c.getAuthor().getUserName().equals(userName)).collect(Collectors.toList());
+        List<Comment> filteredComments = comments.stream().filter(c -> c.getAuthor().getUserName().equals(userName)).collect(Collectors.toList());
 
         commentRepository.deleteAll(filteredComments);
 

@@ -20,6 +20,7 @@ export class EditUserComponent implements OnInit {
   repeatedPassword: string;
   userName: string;
   isAdmin: boolean;
+  editPassword: boolean;
 
   constructor(
     private apiService: AppServiceService,
@@ -37,6 +38,7 @@ export class EditUserComponent implements OnInit {
     this.correctRegister = false;
     this.incorrectRegister = false;
     this.repeatedPassword = "";
+    this.editPassword = false;
 
 
     this.route.params.forEach((params: Params) => {
@@ -112,13 +114,13 @@ export class EditUserComponent implements OnInit {
       this.openSnackBarForValidation("REGISTER.UCANTBENULL", "OK");
 
       return false;
-    } else if (this.user.password == undefined || this.user.password == "") {
+    } else if (this.user.password == undefined || this.user.password == "" && this.editPassword == true) {
       this.openSnackBarForValidation("REGISTER.PCANTBETNULL", "OK");
 
       return false;
     } else if (
       this.repeatedPassword == undefined ||
-      this.repeatedPassword == ""
+      this.repeatedPassword == "" && this.editPassword == true
     ) {
       this.openSnackBarForValidation("REGISTER.RPCANTBENULL", "OK");
 
