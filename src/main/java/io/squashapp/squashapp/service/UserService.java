@@ -1,4 +1,4 @@
-package io.squashapp.squashapp;
+package io.squashapp.squashapp.service;
 
 import io.squashapp.squashapp.models.User;
 import io.squashapp.squashapp.repository.IUserService;

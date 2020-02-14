@@ -1,7 +1,7 @@
 package io.squashapp.squashapp.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.squashapp.squashapp.UserDetailsServiceImpl;
+import io.squashapp.squashapp.service.UserDetailsServiceImpl;
 import io.squashapp.squashapp.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

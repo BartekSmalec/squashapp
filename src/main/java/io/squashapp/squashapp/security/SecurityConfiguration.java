@@ -1,7 +1,6 @@
-package io.squashapp.squashapp;
+package io.squashapp.squashapp.security;
 
-import io.squashapp.squashapp.security.JwtAuthEntryPoint;
-import io.squashapp.squashapp.security.JwtAuthTokenFilter;
+import io.squashapp.squashapp.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

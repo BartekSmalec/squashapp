@@ -21,7 +21,6 @@ public class Tournament {
     private String city;
     @Column(name = "country")
     private String country;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "tournament")
     private Set<Match> matches;
@@ -39,13 +38,12 @@ public class Tournament {
     private int numOfSets;
     @Column(name = "type_of_counting_result")
     private boolean typeOfCountingResult;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
     @JoinTable(
-            name = "course_like",
+            name = "participants",
             joinColumns = @JoinColumn(name = "tournament_id"),
             inverseJoinColumns = @JoinColumn(name = "id"))
     @ManyToMany

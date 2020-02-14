@@ -1,6 +1,6 @@
 package io.squashapp.squashapp.security;
 
-import io.squashapp.squashapp.UserDetailsServiceImpl;
+import io.squashapp.squashapp.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
